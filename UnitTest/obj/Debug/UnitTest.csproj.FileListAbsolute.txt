@@ -1,0 +1,7 @@
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\UnitTest.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\UnitTest.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\DmNet.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\DmNet.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.pdb

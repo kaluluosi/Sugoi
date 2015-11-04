@@ -1,0 +1,8 @@
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\bin\Debug\Test.exe.config
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\bin\Debug\Test.exe
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\bin\Debug\Test.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\obj\Debug\Test.exe
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\obj\Debug\Test.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\bin\Debug\DmNet.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\Test\bin\Debug\DmNet.pdb
