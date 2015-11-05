@@ -272,10 +272,11 @@ namespace DmNet.Window
         }
 
         /// <summary>
-        /// 往窗口输入文字
+        /// 往窗口输入文字。
+        /// 注：如果此函数调用后无效，那么应该是窗口句柄抓错了，换窗口里的子窗口试一下。
         /// </summary>
         /// <param name="msg">内容</param>
-        /// <param name="ime">是否用ime输入</param>
+        /// <param name="ime">是否用ime输入[收费接口]</param>
         public bool Say(string msg,bool ime=false) {
             if(ime)
                 return Convert.ToBoolean( dm.SendStringIme(msg));

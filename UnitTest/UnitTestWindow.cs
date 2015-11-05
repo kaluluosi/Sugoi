@@ -35,6 +35,7 @@ namespace UnitTest
             }
         }
 
+
         #region 附加测试特性
         //
         // 编写测试时，可以使用以下附加特性: 
@@ -58,7 +59,7 @@ namespace UnitTest
 
         [ClassInitialize()]
         public static void UnitTestInit(TestContext testContext) {
-            app.StartInfo.FileName = @"c:\WINDOWS\system32\notepad.exe";
+            app.StartInfo.FileName = @"c:\WINDOWS\SysWow64\notepad.exe";
             app.Start();
             Thread.Sleep(1000);
         }
@@ -83,7 +84,7 @@ namespace UnitTest
             Assert.IsNull(win);
         }
 
-        [TestMethod]
+
         public void Case_ClienSize() {
             Window win = Window.FindWindow("记事本");
             Size size = win.ClientSize;
@@ -91,13 +92,25 @@ namespace UnitTest
             Assert.AreEqual(new Size(916, 616), size);
         }
 
-        [TestMethod]
+
         public void Case_ClentRect() {
             Window win = Window.FindWindow("记事本");
             Rectangle rect = win.ClientRect;
             Console.WriteLine(Rectangle.Empty);
             Assert.AreNotEqual(Rectangle.Empty, rect);
-            Assert.AreEqual(new Rectangle(583, 351,916,616), rect);
+            Assert.AreEqual(new Rectangle(925, 316,916,616), rect);
+        }
+
+
+        [TestMethod]
+        public void Case_Say() {
+            Window win = Window.FindWindow("记事本");
+            List<Window> wins = win.FindChildren("", "Edit", FilterOption.Name);
+            if(wins != null) {
+                Window edit = wins[0];
+                edit.Say("kk");
+                Assert.IsTrue("kk".Contains(edit.Title));
+            }
         }
 
         [TestMethod]
@@ -132,9 +145,44 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void Case_Say() {
+        public void Case_MinimizeMaximize() {
             Window win = Window.FindWindow("记事本");
-            win.Say("hello");
+            win.Minimize();
+            Assert.IsTrue(win.Minimized,"理应是最小化");
+            Assert.IsFalse(win.Maximized, "理应不是最大化");
+            win.Maximize();
+            Assert.IsFalse(win.Minimized,"理应不是最小化");
+            Assert.IsTrue(win.Maximized, "理应是最大化");
+        }
+
+        [TestMethod]
+        public void Case_Restore() {
+            Window win = Window.FindWindow("记事本");
+            win.Minimize();
+            win.Restore();
+            Assert.IsFalse(win.Minimized, "理应不是最小化");
+        }
+
+        [TestMethod]
+        public void Case_Transparent() {
+            Window win = Window.FindWindow("记事本");
+            win.Transparent = 30;
+        }
+
+        [TestMethod]
+        public void Case_processPath() {
+            Window win = Window.FindWindow("记事本");
+            Assert.AreEqual(@"c:\WINDOWS\SysWow64\notepad.exe", win.ProcessPath, true);
+        }
+
+        [TestMethod]
+        public void Case_C2SS2C() {
+            Window win = Window.FindWindow("记事本");
+            int sX = win.ClientRect.X;
+            int sY = win.ClientRect.Y;
+            Point cp = win.ScreenToClient(sX, sY);
+            Point sp = win.ClientToScreen(cp.X, cp.Y);
+            Assert.AreEqual(new Point(sX,sY), sp);
         }
     }
 }

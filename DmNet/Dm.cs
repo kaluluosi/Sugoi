@@ -16,10 +16,37 @@ namespace DmNet
     {
         private static dmsoft dm;
 
+        public static bool IsRegisted {
+            get {
+                Type t = Type.GetTypeFromCLSID(new Guid("{26037A0E-7CBD-4FFF-9C63-56F2D0770214}"));
+                return t != null ? true : false;
+            }
+        }
+
         public static dmsoft Instance {
             get {
                 return dm == null ? dm = new dmsoft() : dm;
-            } 
+            }
         }
+
+        public static void RegistDM(string path = "./dm.dll") {
+            string strCmd = string.Format("regsvr32 {0}", path);
+            try {
+                Process myProcess = new Process();
+                ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("cmd.exe");
+                myProcessStartInfo.Verb = "RunAs";
+                myProcessStartInfo.UseShellExecute = false;
+                myProcessStartInfo.CreateNoWindow = true;
+                myProcessStartInfo.RedirectStandardOutput = true;
+                myProcess.StartInfo = myProcessStartInfo;
+                myProcessStartInfo.Arguments = "/c " + strCmd;
+                myProcess.Start();
+            }
+            catch(System.Exception ex) {
+                throw ex;
+            }
+        }
+
+
     }
 }
