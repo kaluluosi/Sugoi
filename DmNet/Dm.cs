@@ -23,11 +23,15 @@ namespace DmNet
             }
         }
 
-        public static dmsoft Instance {
+        /// <summary>
+        /// 默认dm对象
+        /// </summary>
+        public static dmsoft Default {
             get {
                 return dm == null ? dm = new dmsoft() : dm;
             }
         }
+
 
         public static void RegistDM(string path = "./dm.dll") {
             string strCmd = string.Format("regsvr32 {0}", path);

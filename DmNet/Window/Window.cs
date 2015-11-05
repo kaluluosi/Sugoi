@@ -9,21 +9,22 @@ using System.Diagnostics;
 
 namespace DmNet.Window
 {
-    
 
- 
+
+
 
     public class Window
     {
         /// <summary>
         /// 大漠插件对象
+        /// Window对象创建出来时所有函数都是调用默认的dm对象操作(单例)，而默认dm对象没绑定到window上
         /// </summary>
-        private static dmsoft dm = Dm.Instance;
+        private dmsoft dm = Dm.Default;
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hwnd">句柄</param>
-        public Window(int hwnd){
+        public Window(int hwnd) {
             this.Hwnd = hwnd;
         }
 
@@ -39,10 +40,10 @@ namespace DmNet.Window
         /// </summary>
         public Size ClientSize {
             get {
-                COMParam<int> x,y;
+                COMParam<int> x, y;
                 x = new COMParam<int>(0);
                 y = new COMParam<int>(0);
-                dm.GetClientSize(Hwnd,out x.Data,out y.Data);
+                dm.GetClientSize(Hwnd, out x.Data, out y.Data);
                 return new Size(x.Value, y.Value);
             }
             set {
@@ -54,13 +55,13 @@ namespace DmNet.Window
         /// </summary>
         public Rectangle ClientRect {
             get {
-                COMParam<int> x1,y1,x2,y2;
+                COMParam<int> x1, y1, x2, y2;
                 x1 = new COMParam<int>(0);
                 y1 = new COMParam<int>(0);
                 x2 = new COMParam<int>(0);
                 y2 = new COMParam<int>(0);
                 dm.GetClientRect(Hwnd, out x1.Data, out y1.Data, out x2.Data, out y2.Data);
-                return new Rectangle(x1.Value, y1.Value, Math.Abs(x1.Value - x2.Value), Math.Abs(y1.Value -y2.Value));
+                return new Rectangle(x1.Value, y1.Value, Math.Abs(x1.Value - x2.Value), Math.Abs(y1.Value - y2.Value));
             }
         }
 
@@ -72,7 +73,7 @@ namespace DmNet.Window
                 return dm.GetWindowTitle(Hwnd);
             }
             set {
-                dm.SetWindowText(Hwnd,value);
+                dm.SetWindowText(Hwnd, value);
             }
         }
 
@@ -99,7 +100,7 @@ namespace DmNet.Window
         /// </summary>
         public long ProcessID {
             get {
-               return dm.GetWindowProcessId(Hwnd);
+                return dm.GetWindowProcessId(Hwnd);
             }
         }
 
@@ -113,7 +114,7 @@ namespace DmNet.Window
                 y1 = new COMParam<int>(0);
                 x2 = new COMParam<int>(0);
                 y2 = new COMParam<int>(0);
-                dm.GetWindowRect(Hwnd,out x1.Data,out y1.Data,out x2.Data,out y2.Data);
+                dm.GetWindowRect(Hwnd, out x1.Data, out y1.Data, out x2.Data, out y2.Data);
                 return new Rectangle(x1.Value, y1.Value, Math.Abs(x1.Value - x2.Value), Math.Abs(y1.Value - y2.Value));
             }
         }
@@ -135,7 +136,7 @@ namespace DmNet.Window
         /// </summary>
         public bool Existed {
             get {
-                return dm.GetWindowState(Hwnd,0) == 1 ? true : false;
+                return dm.GetWindowState(Hwnd, 0) == 1 ? true : false;
             }
         }
         /// <summary>
@@ -143,7 +144,7 @@ namespace DmNet.Window
         /// </summary>
         public bool Active {
             get {
-                return dm.GetWindowState(Hwnd,1) == 1 ? true : false;
+                return dm.GetWindowState(Hwnd, 1) == 1 ? true : false;
             }
         }
         /// <summary>
@@ -200,16 +201,52 @@ namespace DmNet.Window
             }
         }
 
+        public bool IsBinding {
+            get {
+                return Convert.ToBoolean(dm.IsBind(Hwnd));
+            }
+        }
+
+        /// <summary>
+        /// 取消绑定
+        /// </summary>
+        /// <returns></returns>
+        public bool UnBindWindow() {
+            bool result = Convert.ToBoolean(dm.UnBindWindow());
+            if(result){
+                this.dm = Dm.Default;
+            }
+            return result;
+        }
+
         #endregion
 
         #region method
 
         /// <summary>
+        /// 为窗口绑定独立的dm对象,没有为窗口对象绑定dm的话，窗口中调用键鼠和图像识别将是对整个屏幕操作。
+        /// </summary>
+        /// <param name="dm"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public bool BindingDmsoft(dmsoft dm, BindingInfo info) {
+            this.dm = dm;
+            int result = dm.BindWindow(this.Hwnd, info.Display.ToString(), info.Mouse.ToString(), info.Keyboard.ToString(), (int)info.Mode);
+            return result == 1 ? true : false;
+        }
+
+        public bool BindingDmsoft(BindingInfo info) {
+            //将默认的dm对象替换成新建的dm对象
+            this.dm = new dmsoft();
+            return BindingDmsoft(this.dm, info);
+        }
+
+        /// <summary>
         /// 关闭窗口
         /// </summary>
-        public bool Close(bool immediately=false) {
+        public bool Close(bool immediately = false) {
             if(immediately) {
-                return Convert.ToBoolean( dm.SetWindowState(Hwnd, 13));
+                return Convert.ToBoolean(dm.SetWindowState(Hwnd, 13));
             }
             else {
                 return Convert.ToBoolean(dm.SetWindowState(Hwnd, 0));
@@ -220,7 +257,7 @@ namespace DmNet.Window
         /// 是否活动
         /// </summary>
         public bool Activate() {
-            return Convert.ToBoolean( dm.SetWindowState(Hwnd, 1));
+            return Convert.ToBoolean(dm.SetWindowState(Hwnd, 1));
         }
 
         /// <summary>
@@ -229,10 +266,10 @@ namespace DmNet.Window
         /// <param name="activa">是否取消激活</param>
         public bool Minimize(bool activa = false) {
             if(activa) {
-                return Convert.ToBoolean( dm.SetWindowState(Hwnd, 3));
+                return Convert.ToBoolean(dm.SetWindowState(Hwnd, 3));
             }
             else {
-                return Convert.ToBoolean( dm.SetWindowState(Hwnd, 2));
+                return Convert.ToBoolean(dm.SetWindowState(Hwnd, 2));
             }
         }
 
@@ -240,14 +277,14 @@ namespace DmNet.Window
         /// 最大化
         /// </summary>
         public bool Maximize() {
-           return Convert.ToBoolean( dm.SetWindowState(Hwnd, 4));
+            return Convert.ToBoolean(dm.SetWindowState(Hwnd, 4));
         }
 
         /// <summary>
         /// 还原窗口
         /// </summary>
         public bool Restore() {
-           return Convert.ToBoolean( dm.SetWindowState(Hwnd, 5));
+            return Convert.ToBoolean(dm.SetWindowState(Hwnd, 5));
         }
 
         /// <summary>
@@ -261,7 +298,7 @@ namespace DmNet.Window
         /// 显示窗口
         /// </summary>
         public bool Show() {
-           return Convert.ToBoolean( dm.SetWindowState(Hwnd, 7));
+            return Convert.ToBoolean(dm.SetWindowState(Hwnd, 7));
         }
 
         /// <summary>
@@ -277,9 +314,9 @@ namespace DmNet.Window
         /// </summary>
         /// <param name="msg">内容</param>
         /// <param name="ime">是否用ime输入[收费接口]</param>
-        public bool Say(string msg,bool ime=false) {
+        public bool Say(string msg, bool ime = false) {
             if(ime)
-                return Convert.ToBoolean( dm.SendStringIme(msg));
+                return Convert.ToBoolean(dm.SendStringIme(msg));
 
             int result = dm.SendString(Hwnd, msg);
             if(result == 0) {
@@ -295,7 +332,7 @@ namespace DmNet.Window
         /// <param name="x">x坐标</param>
         /// <param name="y">y坐标</param>
         /// <returns>转换后的坐标点</returns>
-        public Point ClientToScreen(int x,int y) {
+        public Point ClientToScreen(int x, int y) {
             COMParam<int> intX = new COMParam<int>(x);
             COMParam<int> intY = new COMParam<int>(y);
             dm.ClientToScreen(Hwnd, ref intX.Data, ref intY.Data);
@@ -320,7 +357,7 @@ namespace DmNet.Window
         /// <param name="x">x坐标</param>
         /// <param name="y">y坐标</param>
         public bool Move(int x, int y) {
-            int result = dm.MoveWindow(Hwnd,x, y);
+            int result = dm.MoveWindow(Hwnd, x, y);
             return result == 1 ? true : false;
         }
 
@@ -331,7 +368,7 @@ namespace DmNet.Window
         /// <param name="className">窗口类名</param>
         /// <param name="option">过滤</param>
         /// <returns>返回所有符合的子窗口</returns>
-        public List<Window> FindChildren(string title, string className="", FilterOption option=FilterOption.Default) {
+        public List<Window> FindChildren(string title, string className = "", FilterOption option = FilterOption.Default) {
             return EnumWindow(this, title, className, option);
         }
 
@@ -340,11 +377,20 @@ namespace DmNet.Window
         /// </summary>
         /// <param name="option">操作选项</param>
         /// <returns></returns>
-        public Window GetWindow(Option option=Option.Parent) {
+        public Window GetWindow(Option option = Option.Parent) {
             Window win = new Window(dm.GetWindow(Hwnd, (int)option));
             return win;
         }
 
+        /// <summary>
+        /// 截图 保存格式默认为png
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public bool Capture(string fileName) {
+            int result = dm.CapturePng(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+            return Convert.ToBoolean(result);
+        }
 
         #endregion
 
@@ -359,15 +405,15 @@ namespace DmNet.Window
         /// <param name="className">窗口类名</param>
         /// <param name="parent">父窗口</param>
         /// <returns>窗口</returns>
-        public static Window FindWindow(string title, string className = "",Window parent=null) {
+        public static Window FindWindow(string title, string className = "", Window parent = null) {
             int hwnd = 0;
             if(parent == null) {
-                hwnd = Dm.Instance.FindWindow(className, title);
+                hwnd = Dm.Default.FindWindow(className, title);
             }
             else {
-                hwnd = Dm.Instance.FindWindowEx(parent.Hwnd,className, title);
+                hwnd = Dm.Default.FindWindowEx(parent.Hwnd, className, title);
             }
-            return hwnd>0?new Window(hwnd):null;
+            return hwnd > 0 ? new Window(hwnd) : null;
         }
 
 
@@ -379,8 +425,8 @@ namespace DmNet.Window
         /// <param name="className">窗口类名</param>
         /// <param name="option">过滤</param>
         /// <returns>所有窗口</returns>
-        public static List<Window> EnumWindow(Window paren, string title="", string className="", FilterOption option=FilterOption.Default) {
-            string allHwnds = Dm.Instance.EnumWindow(paren.Hwnd, title, className,(int)option);
+        public static List<Window> EnumWindow(Window paren, string title = "", string className = "", FilterOption option = FilterOption.Default) {
+            string allHwnds = Dm.Default.EnumWindow(paren.Hwnd, title, className, (int)option);
             return HwndString2Window(allHwnds);
         }
 
@@ -393,7 +439,7 @@ namespace DmNet.Window
         /// <param name="option">过滤</param>
         /// <returns></returns>
         public static List<Window> EnumWindowByProcessName(string processName, string title = "", string className = "", FilterOption option = FilterOption.Default) {
-            string allHwnds = Dm.Instance.EnumWindowByProcess(processName, title, className, (int)option);
+            string allHwnds = Dm.Default.EnumWindowByProcess(processName, title, className, (int)option);
             return HwndString2Window(allHwnds);
         }
 
@@ -401,7 +447,7 @@ namespace DmNet.Window
         /// 获取前面有焦点的窗口
         /// </summary>
         public static Window GetForegroundFocusWindow() {
-            int hwnd = dm.GetForegroundFocus();
+            int hwnd = Dm.Default.GetForegroundFocus();
             return hwnd > 0 ? new Window(hwnd) : null;
         }
 
@@ -409,7 +455,7 @@ namespace DmNet.Window
         /// 获取最上层的窗口
         /// </summary>
         public static Window GetForegroundWindow() {
-            int hwnd = dm.GetForegroundWindow();
+            int hwnd = Dm.Default.GetForegroundWindow();
             return hwnd > 0 ? new Window(hwnd) : null;
         }
 
@@ -417,7 +463,7 @@ namespace DmNet.Window
         /// 直接获取当前鼠标位置的窗口
         /// </summary>
         public static Window GetMousePointWindow() {
-            int hwnd = dm.GetMousePointWindow();
+            int hwnd = Dm.Default.GetMousePointWindow();
             return hwnd > 0 ? new Window(hwnd) : null;
         }
 
@@ -427,7 +473,7 @@ namespace DmNet.Window
         /// <param name="x">x坐标</param>
         /// <param name="y">y坐标</param>
         public static Window GetPointWindow(int x, int y) {
-            int hwnd = dm.GetPointWindow(x,y);
+            int hwnd = Dm.Default.GetPointWindow(x, y);
             return hwnd > 0 ? new Window(hwnd) : null;
         }
 
@@ -450,7 +496,7 @@ namespace DmNet.Window
         /// </summary>
         /// <param name="hwnd"></param>
         /// <returns></returns>
-        private static Window CreateWindow(int hwnd){
+        private static Window CreateWindow(int hwnd) {
             return hwnd > 0 ? new Window(hwnd) : null;
         }
 
