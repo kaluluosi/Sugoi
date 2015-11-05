@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Sugoi", "Sugoi\Sugoi.pyproj", "{5A488D18-ACE1-4383-8DE1-8FBC21CBA4E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmNet", "DmNet\DmNet.csproj", "{0E5AAEF0-CE73-490C-82C1-CA56ADECCEC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{EC5D6BF3-7298-4AC6-A1AC-7BB8AFD2FD32}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{BFCB9F03-0F7A-4ED7-B0DA-8C62F7B8DA4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{901325E4-B252-491F-B614-60FA728B6C05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{0E5AAEF0-CE73-490C-82C1-CA56ADECCEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E5AAEF0-CE73-490C-82C1-CA56ADECCEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E5AAEF0-CE73-490C-82C1-CA56ADECCEC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC5D6BF3-7298-4AC6-A1AC-7BB8AFD2FD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC5D6BF3-7298-4AC6-A1AC-7BB8AFD2FD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC5D6BF3-7298-4AC6-A1AC-7BB8AFD2FD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC5D6BF3-7298-4AC6-A1AC-7BB8AFD2FD32}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFCB9F03-0F7A-4ED7-B0DA-8C62F7B8DA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFCB9F03-0F7A-4ED7-B0DA-8C62F7B8DA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFCB9F03-0F7A-4ED7-B0DA-8C62F7B8DA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFCB9F03-0F7A-4ED7-B0DA-8C62F7B8DA4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{901325E4-B252-491F-B614-60FA728B6C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901325E4-B252-491F-B614-60FA728B6C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901325E4-B252-491F-B614-60FA728B6C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901325E4-B252-491F-B614-60FA728B6C05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
