@@ -14,10 +14,10 @@
       <FileName>Dm.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DmNet.Window.Window" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+  <Class Name="DmNet.Window.Window">
+    <Position X="5.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABEACAIaAJMJQSEACAAAYBAgEEABoCBIEEACEAgI=</HashCode>
+      <HashCode>AAAIBEACAIaAJMJQSEACAAAYBAgEEABoCBIEEACEAgI=</HashCode>
       <FileName>Window\Window.cs</FileName>
     </TypeIdentifier>
   </Class>

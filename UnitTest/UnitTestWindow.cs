@@ -127,9 +127,14 @@ namespace UnitTest
         [TestMethod]
         public void Case_FindChildrenNotExisted() {
             Window win = new Window(0);
-            List<Window> windows = win.FindChildren("flakfl;jfsaljf",option:Option.Title);
+            List<Window> windows = win.FindChildren("flakfl;jfsaljf",option:FilterOption.Title);
             Assert.IsNull(windows);
         }
 
+        [TestMethod]
+        public void Case_Say() {
+            Window win = Window.FindWindow("记事本");
+            win.Say("hello");
+        }
     }
 }
