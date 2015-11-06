@@ -7,3 +7,11 @@ D:\GitHub\Sugoi\TestApp\bin\Debug\DmNet.pdb
 D:\GitHub\Sugoi\TestApp\obj\Debug\TestApp.csprojResolveAssemblyReference.cache
 D:\GitHub\Sugoi\TestApp\obj\Debug\TestApp.exe
 D:\GitHub\Sugoi\TestApp\obj\Debug\TestApp.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\TestApp.exe.config
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\obj\Debug\TestApp.exe
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\obj\Debug\TestApp.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\TestApp.exe
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\TestApp.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\DmNet.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\DmNet.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\obj\Debug\TestApp.csprojResolveAssemblyReference.cache

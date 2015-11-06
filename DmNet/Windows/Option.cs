@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DmNet.Window
+namespace DmNet.Windows
 {
     /// <summary>
     /// GetWindow 函数的操作项

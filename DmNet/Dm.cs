@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dm;
+using dmNet;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace DmNet {
+namespace DmNet
+{
     /// <summary>
     /// 大漠对象单例工厂
     /// </summary>
-    public class Dm {
+    public class Dm
+    {
         private const string dllDefaultPath = "./dm.dll";
 
         private static dmsoft dm;
@@ -31,10 +33,10 @@ namespace DmNet {
             get {
                 //auto regist
                 try {
-                    if (IsRegisted == false)
+                    if(IsRegisted == false)
                         RegistDM();
                 }
-                catch (FileNotFoundException ex) {
+                catch(FileNotFoundException ex) {
                     throw ex;
                 }
                 return dm == null ? dm = new dmsoft() : dm;
@@ -42,24 +44,45 @@ namespace DmNet {
         }
 
 
-        public static void RegistDM(string path = dllDefaultPath) {
-            if (File.Exists(dllDefaultPath)==false) {
+        public static void RegistDM(string path = dllDefaultPath,bool showMsgBox=false) {
+            if(File.Exists(dllDefaultPath) == false) {
                 throw new FileNotFoundException(dllDefaultPath + " is not found. Make sure the dll is in the root path.");
             }
             string strCmd = string.Format("regsvr32 {0}", path);
-            try {
-                Process myProcess = new Process();
-                ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("cmd.exe");
-                myProcessStartInfo.Verb = "runas";
-                myProcessStartInfo.UseShellExecute = false;
-                myProcessStartInfo.CreateNoWindow = true;
-                myProcessStartInfo.RedirectStandardOutput = true;
-                myProcess.StartInfo = myProcessStartInfo;
-                myProcessStartInfo.Arguments = "/s " + strCmd;
-                myProcess.Start();
+            string msgbox = showMsgBox ? "/c " : "/s ";
+
+            Process myProcess = new Process();
+            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("cmd.exe");
+            myProcessStartInfo.Verb = "runas";
+            myProcessStartInfo.UseShellExecute = false;
+            myProcessStartInfo.CreateNoWindow = true;
+            myProcessStartInfo.RedirectStandardOutput = true;
+            myProcess.StartInfo = myProcessStartInfo;
+            myProcessStartInfo.Arguments = msgbox + strCmd;
+            myProcess.Start();
+        }
+
+        public static void UnregistDM(string path = dllDefaultPath,bool showMsgBox=false) {
+            if(File.Exists(dllDefaultPath) == false) {
+                throw new FileNotFoundException(dllDefaultPath + " is not found. Make sure the dll is in the root path.");
             }
-            catch (System.Exception ex) {
-                throw ex;
+
+            string strCmd = string.Format("regsvr32 /u {0}", path);
+            string msgbox = showMsgBox ? "/c " : "/s ";
+
+            Process myProcess = new Process();
+            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("cmd.exe");
+            myProcessStartInfo.Verb = "runas";
+            myProcessStartInfo.UseShellExecute = false;
+            myProcessStartInfo.CreateNoWindow = true;
+            myProcessStartInfo.RedirectStandardOutput = true;
+            myProcess.StartInfo = myProcessStartInfo;
+            myProcessStartInfo.Arguments = msgbox + strCmd;
+            myProcessStartInfo.RedirectStandardError = true;
+            myProcess.Start();
+            string error = myProcess.StandardError.ReadToEnd();
+            if(string.IsNullOrEmpty(error) == false) {
+                throw new Exception(error);
             }
         }
 

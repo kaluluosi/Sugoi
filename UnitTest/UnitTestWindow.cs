@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Threading;
 using System.Drawing;
-using DmNet.Window;
+using DmNet.Windows;
 using DmNet;
 
 namespace UnitTest

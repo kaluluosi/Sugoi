@@ -5,8 +5,6 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\DmNet.dll
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\DmNet.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.dll
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.pdb
-C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\dm.dll
-C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\Interop.Dm.dll
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.csproj.ResolveComReference.cache
 D:\GitHub\Sugoi\UnitTest\bin\Debug\dm.dll
 D:\GitHub\Sugoi\UnitTest\bin\Debug\UnitTest.dll
@@ -20,3 +18,4 @@ D:\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.csproj.ResolveComReference.cache
 D:\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.dll
 D:\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.pdb
 D:\GitHub\Sugoi\UnitTest\obj\Debug\Interop.Dm.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\Interop.Dm.dll

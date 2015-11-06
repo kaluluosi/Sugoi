@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dm;
+using dmNet;
 using System.Drawing;
 using System.Diagnostics;
+using DmNet.Input;
 
-namespace DmNet.Window
+namespace DmNet.Windows
 {
 
 
@@ -20,6 +21,17 @@ namespace DmNet.Window
         /// Window对象创建出来时所有函数都是调用默认的dm对象操作(单例)，而默认dm对象没绑定到window上
         /// </summary>
         private dmsoft dm = Dm.Default;
+
+        private Keyboard keyboard;
+        private Mouse mouse;
+
+        /// <summary>
+        /// 默认窗口 桌面
+        /// </summary>
+        public Window():this(0) {
+
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -34,6 +46,15 @@ namespace DmNet.Window
         /// 窗口句柄
         /// </summary>
         public int Hwnd { get; set; }
+
+        /// <summary>
+        /// 大漠对象
+        /// </summary>
+        public dmsoft Dmsoft {
+            get {
+                return dm;
+            }
+        }
 
         /// <summary>
         /// 客户区大小
@@ -62,6 +83,22 @@ namespace DmNet.Window
                 y2 = new COMParam<int>(0);
                 dm.GetClientRect(Hwnd, out x1.Data, out y1.Data, out x2.Data, out y2.Data);
                 return new Rectangle(x1.Value, y1.Value, Math.Abs(x1.Value - x2.Value), Math.Abs(y1.Value - y2.Value));
+            }
+        }
+
+        public Keyboard Keyborad {
+            get {
+                if(keyboard == null)
+                    keyboard = new Keyboard(this);
+                return keyboard;
+            }
+        }
+
+        public Mouse Mouse {
+            get {
+                if(mouse == null)
+                    mouse = new Mouse(this);
+                return mouse;
             }
         }
 
@@ -201,6 +238,9 @@ namespace DmNet.Window
             }
         }
 
+        /// <summary>
+        /// 收费功能，免费无效
+        /// </summary>
         public bool IsBinding {
             get {
                 return Convert.ToBoolean(dm.IsBind(Hwnd));
@@ -236,9 +276,8 @@ namespace DmNet.Window
         }
 
         public bool BindingDmsoft(BindingInfo info) {
-            //将默认的dm对象替换成新建的dm对象
-            this.dm = new dmsoft();
-            return BindingDmsoft(this.dm, info);
+            //将默认的dm对象替换成新建的dm对象new dmsoft();
+            return BindingDmsoft(new dmsoft(), info);
         }
 
         /// <summary>

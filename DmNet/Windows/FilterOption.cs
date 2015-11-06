@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DmNet.Window
+namespace DmNet.Windows
 {
     /// <summary>
     /// 窗口过滤选项，可互相组合

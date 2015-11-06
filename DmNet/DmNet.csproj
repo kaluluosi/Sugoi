@@ -30,6 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dmNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\dmNet.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -44,31 +49,16 @@
     <Compile Include="COMParam.cs" />
     <Compile Include="Dm.cs" />
     <Compile Include="Input\Keyboard.cs" />
+    <Compile Include="Input\InputMode.cs" />
     <Compile Include="Input\Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Window\BindingInfo.cs" />
-    <Compile Include="Window\FilterOption.cs" />
-    <Compile Include="Window\Option.cs" />
-    <Compile Include="Window\Window.cs" />
+    <Compile Include="Windows\BindingInfo.cs" />
+    <Compile Include="Windows\FilterOption.cs" />
+    <Compile Include="Windows\Option.cs" />
+    <Compile Include="Windows\Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="dm.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="Dm">
-      <Guid>{84288AAD-BA02-4EF2-85EC-3FAD4D11354D}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
