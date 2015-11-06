@@ -84,6 +84,12 @@ namespace DmNet.Input
             win.Dmsoft.MoveR(offset_x, offset_y);
         }
 
+        /// <summary>
+        /// 移动到客户区坐标点
+        /// 注：不包括窗体框
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void MoveTo(int x, int y) {
             win.Dmsoft.MoveTo(x, y);
         }

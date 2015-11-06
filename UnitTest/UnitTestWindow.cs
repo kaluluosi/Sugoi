@@ -170,11 +170,6 @@ namespace UnitTest
             Assert.IsFalse(win.Minimized, "理应不是最小化");
         }
 
-        [TestMethod]
-        public void Case_Transparent() {
-            Window win = Window.FindWindow("记事本");
-            win.Transparent = 30;
-        }
 
         [TestMethod]
         public void Case_processPath() {
@@ -191,6 +186,21 @@ namespace UnitTest
             Point sp = win.ClientToScreen(cp.X, cp.Y);
             Assert.AreEqual(new Point(sX,sY), sp);
         }
+
+        [TestMethod]
+        public void Case_MoveMouse() {
+            Window win = Window.FindWindow("记事本");
+            int x = win.ClientRect.X;
+            int y = win.ClientRect.Y;
+            win.BindingDmsoft(BindingInfo.DefaultForeground);
+            win.Mouse.MoveTo(0, 0);
+            DmNet.Input.Mouse m = new DmNet.Input.Mouse();
+            int m_x = m.Position.X;
+            int m_y = m.Position.Y;
+            Assert.AreEqual(x, m_x);
+            Assert.AreEqual(y, m_y);
+        }
+
 
     }
 }
