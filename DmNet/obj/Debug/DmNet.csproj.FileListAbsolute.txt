@@ -3,3 +3,11 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\DmNet\bin\Debug\DmNet.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\DmNet\obj\Debug\DmNet.dll
 C:\Users\dengxuan\Documents\GitHub\Sugoi\DmNet\obj\Debug\DmNet.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\DmNet\bin\Debug\dm.dll
+D:\GitHub\Sugoi\DmNet\bin\Debug\dm.dll
+D:\GitHub\Sugoi\DmNet\bin\Debug\DmNet.dll
+D:\GitHub\Sugoi\DmNet\bin\Debug\DmNet.pdb
+D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.csprojResolveAssemblyReference.cache
+D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.dll
+D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.pdb
+D:\GitHub\Sugoi\DmNet\obj\Debug\Interop.Dm.dll
+D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.csproj.ResolveComReference.cache

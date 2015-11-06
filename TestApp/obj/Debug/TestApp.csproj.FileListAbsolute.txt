@@ -1,0 +1,9 @@
+D:\GitHub\Sugoi\TestApp\bin\Debug\TestApp.exe.config
+D:\GitHub\Sugoi\TestApp\bin\Debug\dm.dll
+D:\GitHub\Sugoi\TestApp\bin\Debug\TestApp.exe
+D:\GitHub\Sugoi\TestApp\bin\Debug\TestApp.pdb
+D:\GitHub\Sugoi\TestApp\bin\Debug\DmNet.dll
+D:\GitHub\Sugoi\TestApp\bin\Debug\DmNet.pdb
+D:\GitHub\Sugoi\TestApp\obj\Debug\TestApp.csprojResolveAssemblyReference.cache
+D:\GitHub\Sugoi\TestApp\obj\Debug\TestApp.exe
+D:\GitHub\Sugoi\TestApp\obj\Debug\TestApp.pdb
