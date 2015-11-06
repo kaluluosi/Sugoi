@@ -26,7 +26,7 @@ namespace DmNet.Windows
         private Mouse mouse;
 
         /// <summary>
-        /// 默认窗口 桌面
+        /// 默认 桌面窗口
         /// </summary>
         public Window():this(0) {
 
@@ -422,12 +422,26 @@ namespace DmNet.Windows
         }
 
         /// <summary>
-        /// 截图 保存格式默认为png
+        /// 截取客户区画面保存为png
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public bool Capture(string fileName) {
-            int result = dm.CapturePng(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+        public bool ScreenShot(string fileName,string imgType="bmp") {
+            int result = 0;
+            switch(imgType.ToLower()) {
+                case "png":
+                    result = dm.CapturePng(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+                    break;
+                case "jpg":
+                    result = dm.CaptureJpg(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName,100);
+                    break;
+                case "bmp":
+                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+                    break;
+                default:
+                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+                    break;
+            }
             return Convert.ToBoolean(result);
         }
 

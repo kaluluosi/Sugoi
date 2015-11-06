@@ -13,6 +13,9 @@ namespace DmNet.Input
     {
         private Window win;
 
+        /// <summary>
+        /// 桌面键盘
+        /// </summary>
         public Keyboard():this(new Window()) {
             
         }
