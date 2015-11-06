@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.Drawing;
 using DmNet.Window;
-using DmNet;
 
 namespace UnitTest
 {
@@ -68,12 +67,6 @@ namespace UnitTest
         [ClassCleanup()]
         public static void UnitTestCleanup() {
             app.Kill();
-        }
-
-        [TestMethod]
-        public void Case_Regist() {
-            DmNet.Dm.RegistDM();
-            Assert.IsTrue(DmNet.Dm.IsRegisted);
         }
 
         #endregion
@@ -191,6 +184,5 @@ namespace UnitTest
             Point sp = win.ClientToScreen(cp.X, cp.Y);
             Assert.AreEqual(new Point(sX,sY), sp);
         }
-
     }
 }
