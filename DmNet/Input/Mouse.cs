@@ -38,8 +38,18 @@ namespace DmNet.Input
             win.Dmsoft.LeftClick();
         }
 
+        public void LeftClick(int x, int y) {
+            MoveTo(x, y);
+            LeftClick();
+        }
+
         public void LeftDoubleClick() {
             win.Dmsoft.LeftDoubleClick();
+        }
+
+        public void LeftDoubleClick(int x, int y) {
+            MoveTo(x, y);
+            LeftDoubleClick();
         }
 
         public void LeftDown() {
@@ -74,7 +84,11 @@ namespace DmNet.Input
             win.Dmsoft.WheelUp();
         }
 
-
+        /// <summary>
+        /// 以远点为坐标偏移过去
+        /// </summary>
+        /// <param name="offset_x"></param>
+        /// <param name="offset_y"></param>
         public void MoveToDirection(int offset_x, int offset_y) {
             win.Dmsoft.MoveR(offset_x, offset_y);
         }
@@ -89,9 +103,16 @@ namespace DmNet.Input
             win.Dmsoft.MoveTo(x, y);
         }
 
+        /// <summary>
+        /// 移动到这个区域内任意一点
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public void MoveToArea(int x, int y, int width, int height) {
             win.Dmsoft.MoveToEx(x, y, width, height);
         }
-
+        
     }
 }
