@@ -12,6 +12,5 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\obj\Debug\TestApp.exe
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\obj\Debug\TestApp.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\TestApp.exe
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\TestApp.pdb
-C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\DmNet.dll
-C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\DmNet.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\obj\Debug\TestApp.csprojResolveAssemblyReference.cache
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\head.bmp

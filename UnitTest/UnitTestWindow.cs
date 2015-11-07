@@ -187,19 +187,7 @@ namespace UnitTest
             Assert.AreEqual(new Point(sX,sY), sp);
         }
 
-        [TestMethod]
-        public void Case_MoveMouse() {
-            Window win = Window.FindWindow("记事本");
-            int x = win.ClientRect.X;
-            int y = win.ClientRect.Y;
-            win.BindingDmsoft(BindingInfo.DefaultForeground);
-            win.Mouse.MoveTo(0, 0);
-            DmNet.Input.Mouse m = new DmNet.Input.Mouse();
-            int m_x = m.Position.X;
-            int m_y = m.Position.Y;
-            Assert.AreEqual(x, m_x);
-            Assert.AreEqual(y, m_y);
-        }
+        
 
 
     }

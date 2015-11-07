@@ -38,11 +38,17 @@ namespace UnitTest
 
         //在运行类中的第一个测试之前使用 ClassInitialize 运行代码
         [ClassInitialize()]
-        public static void MyClassInitialize(TestContext testContext) { }
+        public static void MyClassInitialize(TestContext testContext) {
+            if(DmNet.Dm.IsRegisted)
+                DmNet.Dm.UnregistDM();
+        }
 
         //在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
         [ClassCleanup()]
-        public static void MyClassCleanup() { }
+        public static void MyClassCleanup() {
+            if(DmNet.Dm.IsRegisted == false)
+                DmNet.Dm.RegistDM();
+        }
 
         //在运行每个测试之前，使用 TestInitialize 来运行代码
         [TestInitialize()]
@@ -57,6 +63,11 @@ namespace UnitTest
         public void Case_RegistDM() {
             DmNet.Dm.RegistDM();
             Assert.IsTrue(DmNet.Dm.IsRegisted);
+        }
+
+        public void Case_UnregistDM() {
+            DmNet.Dm.UnregistDM();
+            Assert.IsFalse(DmNet.Dm.IsRegisted);
         }
 
     }

@@ -7,6 +7,8 @@ using dmNet;
 using System.Drawing;
 using System.Diagnostics;
 using DmNet.Input;
+using DmNet.ImageRecognition;
+using DmNet.OCR;
 
 namespace DmNet.Windows
 {
@@ -16,6 +18,8 @@ namespace DmNet.Windows
 
     public class Window
     {
+        public static readonly Window Destop = new Window();
+
         /// <summary>
         /// 大漠插件对象
         /// Window对象创建出来时所有函数都是调用默认的dm对象操作(单例)，而默认dm对象没绑定到window上
@@ -24,12 +28,14 @@ namespace DmNet.Windows
 
         private Keyboard keyboard;
         private Mouse mouse;
+        private IR ir;
+        private Ocr ocr;
 
         /// <summary>
         /// 默认 桌面窗口
         /// </summary>
-        public Window():this(0) {
-
+        private Window(){
+            
         }
 
         /// <summary>
@@ -38,6 +44,7 @@ namespace DmNet.Windows
         /// <param name="hwnd">句柄</param>
         public Window(int hwnd) {
             this.Hwnd = hwnd;
+            this.BindingDmsoft(BindingInfo.DefaultForeground);
         }
 
 
@@ -61,13 +68,20 @@ namespace DmNet.Windows
         /// </summary>
         public Size ClientSize {
             get {
-                COMParam<int> x, y;
-                x = new COMParam<int>(0);
-                y = new COMParam<int>(0);
-                dm.GetClientSize(Hwnd, out x.Data, out y.Data);
-                return new Size(x.Value, y.Value);
+                if(IsBinding) {
+                    COMParam<int> x, y;
+                    x = new COMParam<int>(0);
+                    y = new COMParam<int>(0);
+                    dm.GetClientSize(Hwnd, out x.Data, out y.Data);
+                    return new Size(x.Value, y.Value);
+                }
+                else {
+                    return new Size(dm.GetScreenWidth(), dm.GetScreenHeight());
+                }
             }
             set {
+                if(IsBinding == false)
+                    return;
                 dm.SetClientSize(Hwnd, value.Width, value.Height);
             }
         }
@@ -99,6 +113,22 @@ namespace DmNet.Windows
                 if(mouse == null)
                     mouse = new Mouse(this);
                 return mouse;
+            }
+        }
+
+        public IR IR {
+            get {
+                if(ir == null)
+                    ir = new IR(this);
+                return ir;
+            }
+        }
+
+        public Ocr Ocr {
+            get {
+                if(ocr == null)
+                    ocr = new Ocr(this);
+                return ocr;
             }
         }
 
@@ -241,27 +271,24 @@ namespace DmNet.Windows
         /// <summary>
         /// 收费功能，免费无效
         /// </summary>
-        public bool IsBinding {
-            get {
-                return Convert.ToBoolean(dm.IsBind(Hwnd));
-            }
-        }
+        public bool IsBinding { get; set; }
 
-        /// <summary>
-        /// 取消绑定
-        /// </summary>
-        /// <returns></returns>
-        public bool UnBindWindow() {
-            bool result = Convert.ToBoolean(dm.UnBindWindow());
-            if(result){
-                this.dm = Dm.Default;
-            }
-            return result;
-        }
 
         #endregion
 
         #region method
+        /// <summary>
+        /// 取消绑定
+        /// </summary>
+        /// <returns></returns>
+        public bool UnBindingDmsoft() {
+            bool result = Convert.ToBoolean(dm.UnBindWindow());
+            if(result){
+                this.dm = Dm.Default;
+                IsBinding = false;
+            }
+            return result;
+        }
 
         /// <summary>
         /// 为窗口绑定独立的dm对象,没有为窗口对象绑定dm的话，窗口中调用键鼠和图像识别将是对整个屏幕操作。
@@ -272,7 +299,8 @@ namespace DmNet.Windows
         public bool BindingDmsoft(dmsoft dm, BindingInfo info) {
             this.dm = dm;
             int result = dm.BindWindow(this.Hwnd, info.Display.ToString(), info.Mouse.ToString(), info.Keyboard.ToString(), (int)info.Mode);
-            return result == 1 ? true : false;
+            IsBinding = result == 1 ? true : false;
+            return IsBinding;
         }
 
         public bool BindingDmsoft(BindingInfo info) {

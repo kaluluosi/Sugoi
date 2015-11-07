@@ -11,14 +11,9 @@ namespace DmNet.Input
 {
     public class Keyboard
     {
-        private Window win;
+        public static readonly Keyboard DestopKeyboard = new Keyboard(Window.Destop);
 
-        /// <summary>
-        /// 桌面键盘
-        /// </summary>
-        public Keyboard():this(new Window()) {
-            
-        }
+        private Window win;
 
         /// <summary>
         /// 绑定dm对象的构造函数

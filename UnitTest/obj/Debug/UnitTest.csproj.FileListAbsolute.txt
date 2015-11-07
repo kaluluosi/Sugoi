@@ -19,3 +19,6 @@ D:\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.dll
 D:\GitHub\Sugoi\UnitTest\obj\Debug\UnitTest.pdb
 D:\GitHub\Sugoi\UnitTest\obj\Debug\Interop.Dm.dll
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\obj\Debug\Interop.Dm.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\charactor.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\game.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\head.bmp

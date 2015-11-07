@@ -12,14 +12,9 @@ namespace DmNet.Input
 {
     public class Mouse
     {
+        public static readonly Mouse DestopMouse = new Mouse(Window.Destop);
+
         private Window win;
-
-        /// <summary>
-        /// 桌面鼠标
-        /// </summary>
-        public Mouse():this(new Window()) {
-
-        }
 
         public Mouse(Window win) {
             this.win = win;
