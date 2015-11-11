@@ -9,19 +9,23 @@ using Microsoft.Scripting.Hosting;
 using System.Drawing;
 using DmNet.Windows;
 
-namespace TestApp {
-    class Program {
+namespace TestApp
+{
+    class Program
+    {
         static void Main(string[] args) {
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptScope scope = engine.CreateScope();
-            Sugoi sugoi = new Sugoi();
-            sugoi.AppWin = Window.FindWindow("game.bmp");
-            sugoi.AppWin.BindingDmsoft(BindingInfo.GdiBackground);
-            scope.SetVariable("sugoi",sugoi);
-            scope.SetVariable("ImgPattern",typeof(ImgPattern));
-            ScriptSource script = engine.CreateScriptSourceFromFile("test.py");
-            
-            var result = script.Execute(scope);
+
+            try {
+                Sugoi sugoi = new Sugoi();
+                ImgPattern imgPtn = new ImgPattern("computer.bmp");
+                imgPtn.SetCenterOffset(30, 30);
+
+                sugoi.DoubleClick(imgPtn);
+            }
+            catch(System.Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+
             Console.ReadKey();
         }
 

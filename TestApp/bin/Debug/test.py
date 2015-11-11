@@ -1,2 +1,1 @@
-﻿
-sugoi.Exists('head.bmp')
+﻿import clr
