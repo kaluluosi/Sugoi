@@ -28,6 +28,11 @@
     <None Include="IronPythonApplication1.py" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DmNet\DmNet.csproj">
+      <Name>DmNet</Name>
+      <Project>{0e5aaef0-ce73-490c-82c1-ca56adeccec7}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\SugoiTestFramwork\SugoiTestFramwork.csproj">
       <Name>SugoiTestFramwork</Name>
       <Project>{3bd6aff4-75e4-4f8c-942c-9132c8f8daae}</Project>

@@ -1,5 +1,10 @@
 ﻿import clr
-clr.AddReference('SugoiTestFramwork')
-clr.AddReference('DmNet')
-from SugoiTestFramwork import Sugoi
-from SugoiTestFramwork import ImgPattern
+import sys
+clr.AddReference('SugoiTestFramwork.dll')
+clr.AddReference('DmNet.dll')
+
+from SugoiTestFramwork import *
+from DmNet import *
+
+sugoi = Sugoi()
+dm = Dm.Default

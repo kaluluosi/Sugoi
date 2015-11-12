@@ -69,6 +69,7 @@
     <Compile Include="Pattern.cs" />
     <Compile Include="Sugoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SugoiTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DmNet\DmNet.csproj">

@@ -59,12 +59,12 @@ namespace UnitTest
         public void MyTestCleanup() { }
 
         #endregion
-
+        [TestMethod]
         public void Case_RegistDM() {
             DmNet.Dm.RegistDM();
             Assert.IsTrue(DmNet.Dm.IsRegisted);
         }
-
+        [TestMethod]
         public void Case_UnregistDM() {
             DmNet.Dm.UnregistDM();
             Assert.IsFalse(DmNet.Dm.IsRegisted);

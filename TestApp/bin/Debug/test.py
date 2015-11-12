@@ -1,1 +1,2 @@
-﻿import clr
+﻿
+assert(sugoi.Exists("")==True)
