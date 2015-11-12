@@ -31,11 +31,18 @@ namespace TestApp
             SugoiTest assert = new SugoiTest();
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
+            engine.SetSearchPaths(new[] { @"C:\Python27\Lib" });
+            engine.Runtime.IO.RedirectToConsole();
             scope.SetVariable("sugoi", sugoi);
             scope.SetVariable("asrt",assert);
             var code = engine.CreateScriptSourceFromFile("test.py");
+
             try {
-                code.Execute(scope);
+                var result = code.Execute(scope);
+                IEnumerable<string> names = scope.GetVariableNames();
+                foreach(string name in names) {
+                    Console.WriteLine(name);
+                }
             }
             catch(System.Exception ex) {
                 Console.WriteLine(ex.Message);
