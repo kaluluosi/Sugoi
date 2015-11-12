@@ -19,8 +19,17 @@ namespace SugoiTestFramwork
     public class Sugoi
     {
         private Window appWin = Window.Destop;
-        private int autoWaitTimeout = 3000;
+        /// <summary>
+        /// 自动等待超时
+        /// </summary>
+        private int autoWaitTimeout = 500;
+        /// <summary>
+        /// 自动尝试次数
+        /// </summary>
         private int tryCount = 10;
+        /// <summary>
+        /// 操作间隔
+        /// </summary>
         private int opInterval = 500;
 
         public Sugoi() {

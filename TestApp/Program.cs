@@ -27,29 +27,38 @@ namespace TestApp
             //             }
             // 
             //             Console.ReadKey();
-            Sugoi sugoi = new Sugoi();
-            SugoiTest assert = new SugoiTest();
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptScope scope = engine.CreateScope();
-            engine.SetSearchPaths(new[] { @"C:\Python27\Lib" });
-            engine.Runtime.IO.RedirectToConsole();
-            scope.SetVariable("sugoi", sugoi);
-            scope.SetVariable("asrt",assert);
-            var code = engine.CreateScriptSourceFromFile("test.py");
+            //             Sugoi sugoi = new Sugoi();
+            //             SugoiTest asrt = new SugoiTest();
+            //             ScriptEngine engine = Python.CreateEngine();
+            //             ScriptScope scope = engine.CreateScope();
+            //             engine.Runtime.IO.RedirectToConsole();
+            //             scope.SetVariable("sugoi", sugoi);
+            //             scope.SetVariable("asrt",asrt);
+            // 
+            //             var code = engine.CreateScriptSourceFromFile("test.py");
+            // 
+            //             try {
+            //                 var result = code.Execute(scope);
+            //                 IEnumerable<string> names = scope.GetVariableNames();
+            //                 foreach(string name in names) {
+            //                     Console.WriteLine(name);
+            //                 }
+            //             }
+            //             catch(Exception ex) {
+            //                 Console.WriteLine(ex.Message);
+            //             }
+            // 
+            //             Console.ReadKey();
 
-            try {
-                var result = code.Execute(scope);
-                IEnumerable<string> names = scope.GetVariableNames();
-                foreach(string name in names) {
-                    Console.WriteLine(name);
-                }
-            }
-            catch(System.Exception ex) {
-                Console.WriteLine(ex.Message);
+            TestRunner runner = new TestRunner();
+            runner.LoadTestScript("test.py");
+            runner.RunAll();
+            
+            foreach(string key in runner.Result.Keys) {
+                    Console.WriteLine("{0} is {1}:{2}", key,runner.Result[key],runner.Message[key]);
             }
 
             Console.ReadKey();
-
         }
 
     }

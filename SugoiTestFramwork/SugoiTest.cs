@@ -8,9 +8,21 @@ namespace SugoiTestFramwork
 {
     public class SugoiTest
     {
-        public void IsTrue(bool condition, string message) {
+        public void IsTrue(bool condition) {
             if(condition == false) {
-                throw new Exception(message);
+                throw new TestFailedException();
+            }
+        }
+
+        public void IsTrue(bool condition, string message) {
+            if (condition == false) {
+                throw new TestFailedException(message);
+            }
+        }
+
+        public void IsTrue(bool condition, string message,params object[] parameters) {
+            if (condition == false) {
+                throw new TestFailedException(string.Format(message,parameters));
             }
         }
     }
