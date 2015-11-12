@@ -89,7 +89,6 @@ namespace SugoiTestFramwork {
             catch (TestFailedException ex) {
                 result.Add(caseName, false);
                 message.Add(caseName, ex.Message);
-                throw ex;
             }
             
         }
