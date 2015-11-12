@@ -1,8 +1,10 @@
 ﻿
 
 def Case_test1():
-    Sugoi.Click('computer.bmp')
-    Assert.IsTrue(False,'hello')
+    Sugoi.DoubleClick('computer.bmp')
+    Sugoi.Wait(1)
+    Assert.IsTrue(Sugoi.Exists('flag.bmp'),'computer not open')
 
 def Case_test2():
-    Assert.IsTrue(True,'good')
+    Sugoi.AppWin.Mouse.MoveTo(500,500)
+    Assert.IsTrue(True,'fail')

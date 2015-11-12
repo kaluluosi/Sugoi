@@ -60,6 +60,11 @@ namespace SugoiTestFramwork
             this.tryCount = count;
         }
 
+
+        public void Wait(double second) {
+            Thread.Sleep((int)second * 1000);
+        }
+
         public bool Exists(ImgPattern imgPtn) {
             Point p;
             if(imgPtn.IsFullScreen){
