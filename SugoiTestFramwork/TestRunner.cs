@@ -14,42 +14,27 @@ namespace SugoiTestFramwork {
         public readonly static Sugoi sugoi = new Sugoi();
         public readonly static SugoiTest assert = new SugoiTest();
 
-        public Dictionary<string, bool> Result {
-            get {
-                return result;
-            }
-
-            set {
-                result = value;
-            }
-        }
-
-        public Dictionary<string, string> Message {
-            get {
-                return message;
-            }
-
-            set {
-                message = value;
-            }
-        }
-
-
         private ScriptSource script;
         /// <summary>
-        /// key = case name,bool = result
+        /// 测试用例方法集合
         /// </summary>
-        private Dictionary<string, bool> result = new Dictionary<string, bool>();
-        /// <summary>
-        /// key = case name,string = message
-        /// </summary>
-        private Dictionary<string, string> message = new Dictionary<string, string>();
         private List<string> testCases = new List<string>();
+        /// <summary>
+        /// 测试记录集合
+        /// </summary>
+        private Dictionary<string, string> failures = new Dictionary<string, string>();
+        private List<string> successes = new List<string>();
+        private Dictionary<string, string> errors = new Dictionary<string, string>();
 
 
         public Action SetUp;
         public Action TearDown;
 
+        public List<string> TestCases {
+            get {
+                return testCases;
+            }
+        }
 
         /// <summary>
         /// 私有构造函数
@@ -60,7 +45,28 @@ namespace SugoiTestFramwork {
             scope.SetVariable("ImgPattern", typeof(ImgPattern));
         }
 
+        public void AddFailure(string testCase,string errorMsg) {
+            if (failures.ContainsKey(testCase))
+                failures[testCase] = errorMsg;
+            else
+                failures.Add(testCase, errorMsg);
+        }
 
+        public void AddSuccess(string testCase) {
+            if (successes.Contains(testCase)) return;
+            successes.Add(testCase);
+        }
+
+        public void AddError(string testCase,string errorMsg) {
+            if (errors.ContainsKey(testCase))
+                errors[testCase] = errorMsg;
+            else
+                errors.Add(testCase, errorMsg);
+        }
+
+        public bool wasSuccessed(string testCase) {
+            return successes.Contains(testCase);
+        }
 
         public void LoadTestScript(string path) {
             Sugoi.SetImgPath(Path.GetDirectoryName(path)+Path.DirectorySeparatorChar);
@@ -68,6 +74,7 @@ namespace SugoiTestFramwork {
             script = engine.CreateScriptSourceFromFile(path);
             script.Execute(scope);
             try {
+                //找出setup和teardown
                 SetUp = scope.GetVariable<Action>("SetUp");
                 TearDown = scope.GetVariable<Action>("TearDown");
             }
@@ -81,19 +88,18 @@ namespace SugoiTestFramwork {
         }
 
         public void Run(string caseName) {
-
             if (testCases.Contains(caseName) == false) return;
 
             try {
                 Action testMethod = scope.GetVariable<Action>(caseName);
                 testMethod();
-                result.Add(caseName, true);
-                message.Add(caseName, "Pass");
+                AddSuccess(caseName);
             }
-            catch (Exception ex) {
-                result.Add(caseName, false);
-                message.Add(caseName, ex.Message);
-                return;
+            catch (TestFailedException tfe) {
+                AddFailure(caseName, tfe.Message);
+            }
+            catch(Exception e) {
+                AddError(caseName, e.Message);
             }
             
         }
