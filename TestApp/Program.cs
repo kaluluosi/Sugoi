@@ -9,6 +9,7 @@ using Microsoft.Scripting.Hosting;
 using System.Drawing;
 using DmNet.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 namespace TestApp
 {
     class Program
@@ -50,12 +51,17 @@ namespace TestApp
             // 
             //             Console.ReadKey();
 
-            TestRunner runner = new TestRunner();
-            runner.LoadTestScript("test.py");
-            runner.RunAll();
-            
-            foreach(string key in runner.Result.Keys) {
-                    Console.WriteLine("{0} is {1}:{2}", key,runner.Result[key],runner.Message[key]);
+            try {
+                TestRunner runner = new TestRunner();
+                runner.LoadTestScript(args[0]);
+                runner.RunAll();
+
+                foreach(string key in runner.Result.Keys) {
+                    Console.WriteLine("{0} is {1}:{2}", key, runner.Result[key], runner.Message[key]);
+                }
+            }
+            catch(System.Exception ex) {
+                Console.WriteLine(ex.Message);
             }
 
             Console.ReadKey();

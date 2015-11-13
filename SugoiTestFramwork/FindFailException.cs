@@ -9,7 +9,7 @@ namespace SugoiTestFramwork
     public class FindFailException:Exception
     {
         public string  Images { get; set; }
-        public FindFailException(string images,string message):base(message){
+        public FindFailException(string images):base(string.Format("can't find {0}",images)){
             this.Images = images;
         }
     }

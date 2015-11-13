@@ -65,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clock.cs" />
     <Compile Include="FindFailException.cs" />
     <Compile Include="ImgPattern.cs" />
     <Compile Include="Pattern.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="SugoiTest.cs" />
     <Compile Include="TestFailedException.cs" />
     <Compile Include="TestRunner.cs" />
+    <Compile Include="VanishFailException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DmNet\DmNet.csproj">

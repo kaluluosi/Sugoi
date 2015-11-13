@@ -227,6 +227,7 @@ namespace DmNet.ImageRecognition
             return FindAllPic(0,0,win.ClientSize.Width,win.ClientSize.Height, pic_name, delta_color, sim, dir);
         }
 
+
         public static bool PointExist(Point p) {
             return p.X > 0 && p.Y > 0 ? true : false;
         }

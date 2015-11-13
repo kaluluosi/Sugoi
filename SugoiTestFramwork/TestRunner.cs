@@ -2,6 +2,7 @@
 using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace SugoiTestFramwork {
     public class TestRunner {
         public readonly static ScriptEngine engine = Python.CreateEngine();
         public readonly static ScriptScope scope = engine.CreateScope();
+        public readonly static Sugoi sugoi = new Sugoi();
+        public readonly static SugoiTest assert = new SugoiTest();
 
         public Dictionary<string, bool> Result {
             get {
@@ -52,15 +55,16 @@ namespace SugoiTestFramwork {
         /// 私有构造函数
         /// </summary>
         static TestRunner() {
-            Sugoi sugoi = new Sugoi();
-            SugoiTest assert = new SugoiTest();
             scope.SetVariable("Sugoi", sugoi);
             scope.SetVariable("Assert", assert);
+            scope.SetVariable("ImgPattern", typeof(ImgPattern));
         }
 
 
 
         public void LoadTestScript(string path) {
+            Sugoi.SetImgPath(Path.GetDirectoryName(path)+Path.DirectorySeparatorChar);
+            Console.WriteLine(Sugoi.ImgPath);
             script = engine.CreateScriptSourceFromFile(path);
             script.Execute(scope);
             try {
@@ -86,9 +90,10 @@ namespace SugoiTestFramwork {
                 result.Add(caseName, true);
                 message.Add(caseName, "Pass");
             }
-            catch (TestFailedException ex) {
+            catch (Exception ex) {
                 result.Add(caseName, false);
                 message.Add(caseName, ex.Message);
+                return;
             }
             
         }

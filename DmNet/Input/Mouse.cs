@@ -64,6 +64,11 @@ namespace DmNet.Input
             win.Dmsoft.RightClick();
         }
 
+        public void RightClick(int x, int y) {
+            MoveTo(x, y);
+            RightClick();
+        }
+
         public void RightDown() {
             win.Dmsoft.RightDown();
         }

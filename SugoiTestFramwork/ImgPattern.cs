@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using DmNet.ImageRecognition;
 
 namespace SugoiTestFramwork
 {
@@ -13,6 +15,9 @@ namespace SugoiTestFramwork
 
         public ImgPattern(string imgs) {
             this.imgs = imgs;
+            Image img = Image.FromFile(Sugoi.ImgPath+imgs);
+            Height = img.Height;
+            Width = img.Width;
         }
 
         public string Images{

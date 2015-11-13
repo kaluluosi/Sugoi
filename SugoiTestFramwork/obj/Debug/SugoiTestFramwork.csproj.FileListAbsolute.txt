@@ -34,3 +34,13 @@ D:\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Scripting.Metadata.xml
 D:\GitHub\Sugoi\SugoiTestFramwork\obj\Debug\SugoiTestFramwork.csprojResolveAssemblyReference.cache
 D:\GitHub\Sugoi\SugoiTestFramwork\obj\Debug\SugoiTestFramwork.dll
 D:\GitHub\Sugoi\SugoiTestFramwork\obj\Debug\SugoiTestFramwork.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\IronPython.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\IronPython.Modules.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Dynamic.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Scripting.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Scripting.Metadata.dll
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\IronPython.xml
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\IronPython.Modules.xml
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Dynamic.xml
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Scripting.xml
+C:\Users\dengxuan\Documents\GitHub\Sugoi\SugoiTestFramwork\bin\Debug\Microsoft.Scripting.Metadata.xml

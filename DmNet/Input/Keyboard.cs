@@ -81,8 +81,9 @@ namespace DmNet.Input
             return IsUp(k);
         }
 
+
         public static Keys String2Keys(string keyname) {
-            return String2Keys(keyname);
+            return (Keys)Enum.Parse(typeof(Keys), keyname);
         }
     }
 }

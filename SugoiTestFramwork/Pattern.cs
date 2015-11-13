@@ -15,6 +15,8 @@ namespace SugoiTestFramwork
     {
         private double similar = 0.9;
         private int direction = 0;
+        private int offset_X = 0;
+        private int offset_Y = 0;
 
         //有效识别区域默认（0，0，0，0）全屏识别
         public int X1 { get; set; }
@@ -22,8 +24,29 @@ namespace SugoiTestFramwork
         public int X2 { get; set; }
         public int Y2 { get; set; }
 
-        public int Offset_X { get; set; }
-        public int Offset_Y { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
+
+        public int Offset_X {
+            get {
+                if(offset_X == 0)
+                    return Width / 2;
+                return offset_X;
+            }
+            set {
+                offset_X = value;
+            }
+        }
+        public int Offset_Y {
+            get {
+                if(offset_Y == 0)
+                    return Height / 2;
+                return offset_Y;
+            }
+            set {
+                offset_Y = value;
+            }
+        }
 
         public double Similar {
             get {
@@ -72,6 +95,12 @@ namespace SugoiTestFramwork
         public Pattern SetCenterOffset(int x, int y) {
             Offset_X = x;
             Offset_Y = y;
+            return this;
+        }
+
+        public Pattern SetOffset(int x, int y) {
+            offset_X = x;
+            offset_Y = y;
             return this;
         }
     }
