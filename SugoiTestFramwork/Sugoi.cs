@@ -63,9 +63,18 @@ namespace SugoiTestFramwork
             opInterval = millisecond;
         }
 
-        public static void SetImgPath(string path) {
-            imgPath = path;
+        public void BindingWindow(string title,string mode) {
+            AppWin = Window.FindWindow(title);
+            if (AppWin == null) throw new Exception("Binding window fail.Can't find "+title);
+            switch (mode) {
+                case "Foreground":
+                    break;
+                case "Background":
+                    break;
+            }
+            if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);
         }
+
 
         #region 查找
         public Point Find(ImgPattern imgPtn) {
@@ -270,6 +279,12 @@ namespace SugoiTestFramwork
 
         #region 工具
 
+        #endregion
+
+        #region 静态方法
+        public static void SetImgPath(string path) {
+            imgPath = path;
+        }
         #endregion
     }
 }

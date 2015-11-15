@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugoiTestFramwork", "SugoiTestFramwork\SugoiTestFramwork.csproj", "{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IronPythonApplication1", "IronPythonApplication1\IronPythonApplication1.pyproj", "{01AD8052-6BF3-418E-B867-CA517132FC4B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,8 +33,6 @@ Global
 		{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01AD8052-6BF3-418E-B867-CA517132FC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01AD8052-6BF3-418E-B867-CA517132FC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,3 +7,4 @@ D:\GitHub\Sugoi\DmNet\bin\Debug\DmNet.pdb
 D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.dll
 D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\DmNet\obj\Debug\DmNet.csprojResolveAssemblyReference.cache
+D:\GitHub\Sugoi\DmNet\obj\Debug\DmNet.csprojResolveAssemblyReference.cache

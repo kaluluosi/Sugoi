@@ -1,6 +1,6 @@
 ﻿
 
-def Case_test1():
+def test_opencomputer():
     Sugoi.Wait('computer.bmp');
     Sugoi.DoubleClick('computer.bmp')
     Sugoi.Click('ddrive.bmp')

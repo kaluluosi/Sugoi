@@ -80,8 +80,13 @@
     <Compile Include="Sugoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SugoiTest.cs" />
+    <Compile Include="TestMethod.cs" />
+    <Compile Include="TestResult.cs" />
     <Compile Include="TestFailedException.cs" />
     <Compile Include="TestRunner.cs" />
+    <Compile Include="TestCase.cs" />
+    <Compile Include="ScriptLoader.cs" />
+    <Compile Include="TextTestRunner.cs" />
     <Compile Include="VanishFailException.cs" />
   </ItemGroup>
   <ItemGroup>

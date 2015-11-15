@@ -23,10 +23,6 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\IronPython.SQLite.xml
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\IronPython.Wpf.xml
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\Microsoft.Scripting.AspNet.xml
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\test.py
-D:\GitHub\Sugoi\TestApp\bin\Debug\charactor.bmp
-D:\GitHub\Sugoi\TestApp\bin\Debug\game.bmp
-D:\GitHub\Sugoi\TestApp\bin\Debug\head.bmp
-D:\GitHub\Sugoi\TestApp\bin\Debug\computer.bmp
 D:\GitHub\Sugoi\TestApp\bin\Debug\test.py
 D:\GitHub\Sugoi\TestApp\bin\Debug\IronPython.dll
 D:\GitHub\Sugoi\TestApp\bin\Debug\IronPython.Modules.dll
