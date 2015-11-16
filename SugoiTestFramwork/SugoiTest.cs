@@ -8,37 +8,37 @@ namespace SugoiTestFramwork
 {
     public class SugoiTest
     {
-        public void IsTrue(bool condition) {
+        public void AssertTrue(bool condition) {
             if(condition == false) {
                 throw new TestFailedException();
             }
         }
 
-        public void IsTrue(bool condition, string message) {
+        public void AssertTrue(bool condition, string message) {
             if (condition == false) {
                 throw new TestFailedException(message);
             }
         }
 
-        public void IsTrue(bool condition, string message,params object[] parameters) {
+        public void AssertTrue(bool condition, string message,params object[] parameters) {
             if (condition == false) {
                 throw new TestFailedException(string.Format(message,parameters));
             }
         }
 
-        public void IsFalse(bool condition) {
+        public void AssertFalse(bool condition) {
             if(condition == true) {
                 throw new TestFailedException();
             }
         }
 
-        public void IsFalse(bool condition, string message) {
+        public void AssertFalse(bool condition, string message) {
             if(condition == true) {
                 throw new TestFailedException(message);
             }
         }
 
-        public void IsFalse(bool condition, string message, params object[] parameters) {
+        public void AssertFalse(bool condition, string message, params object[] parameters) {
             if(condition == true) {
                 throw new TestFailedException(string.Format(message, parameters));
             }

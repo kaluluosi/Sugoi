@@ -9,29 +9,25 @@ using System.Threading.Tasks;
 namespace SugoiTestFramwork.Tests {
     [TestClass()]
     public class SugoiTests {
-        [TestMethod()]
-        public void SetAutoWaitTimeoutTest() {
-            Assert.Fail();
-        }
+        private static Sugoi sugoi = new Sugoi();
+
 
         [TestMethod()]
         public void FindTest() {
-            Assert.Fail();
+            var p = sugoi.Find("computer.bmp");
+            Assert.IsNotNull(p);
         }
 
         [TestMethod()]
         public void ExistsTest() {
-            Assert.Fail();
+            bool r = sugoi.Exists("computer.bmp");
+            Assert.IsTrue(r, "返回值理应为true，实际为false");
         }
 
-        [TestMethod()]
-        public void WaitTest() {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void WaitTest1() {
-            Assert.Fail();
+        [TestMethod]
+        public void DragDropTest() {
+            sugoi.DragDrop("xiang.bmp","flod.bmp");
+            Assert.IsFalse(sugoi.Exists("xiang.bmp"));
         }
     }
 }

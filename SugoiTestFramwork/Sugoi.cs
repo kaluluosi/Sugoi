@@ -17,7 +17,7 @@ namespace SugoiTestFramwork
     /// <summary>
     /// Sugoi测试框架运行对象
     /// </summary>
-    public class Sugoi
+    public class Sugoi:SugoiTest
     {
         private Window appWin = Window.Destop;
         private static string imgPath = "";
@@ -64,12 +64,14 @@ namespace SugoiTestFramwork
         }
 
         public void BindingWindow(string title,string mode) {
-            AppWin = Window.FindWindow(title);
-            if (AppWin == null) throw new Exception("Binding window fail.Can't find "+title);
+            appWin = Window.FindWindow(title);
+            if (appWin == null) throw new Exception("Binding window fail.Can't find "+title);
             switch (mode) {
                 case "Foreground":
+                    appWin.BindingDmsoft(BindingInfo.DefaultForeground);
                     break;
                 case "Background":
+                    appWin.BindingDmsoft(BindingInfo.DxBackground);
                     break;
             }
             if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);
@@ -102,7 +104,7 @@ namespace SugoiTestFramwork
         }
 
         /// <summary>
-        /// 循环等待判断图像是否存在，不抛出错误
+        /// 循环等待判断图像是否存在，不抛出错误，返回值
         /// </summary>
         /// <param name="imgPtn"></param>
         /// <param name="timeout">毫秒</param>
@@ -130,9 +132,9 @@ namespace SugoiTestFramwork
             return false;
         }
 
-        public bool Exists(string imgs) {
+        public bool Exists(string imgs,int timeout=0) {
             ImgPattern imgPtn = new ImgPattern(imgs);
-            bool result = Exists(imgPtn);
+            bool result = Exists(imgPtn,timeout);
             return result;
         }
 
@@ -145,7 +147,7 @@ namespace SugoiTestFramwork
         }
 
         /// <summary>
-        /// 等待某元素出现
+        /// 等待某元素出现，不返回值
         /// </summary>
         /// <param name="imgPtn"></param>
         /// <param name="timeout">手动设置超时</param>
@@ -229,11 +231,19 @@ namespace SugoiTestFramwork
             appWin.Mouse.MoveTo(p.X, p.Y);
         }
 
-        public void DragDrop(ImgPattern fromImg, ImgPattern toImg) {
-            Hover(fromImg);
+        public void Hover(string img) {
+            Hover(new ImgPattern(img));
+        }
+
+        public void DragDrop(ImgPattern fromImgPtn, ImgPattern toImgPtn) {
+            Hover(fromImgPtn);
             appWin.Mouse.LeftDown();
-            Hover(toImg);
+            Hover(toImgPtn);
             appWin.Mouse.LeftUp();
+        }
+
+        public void DragDrop(string fromImg, string toImg) {
+            DragDrop(new ImgPattern(fromImg), new ImgPattern(toImg));
         }
         #endregion
 
@@ -261,6 +271,34 @@ namespace SugoiTestFramwork
             appWin.Keyborad.KeyPress(Keys.Enter);
         }
 
+        public void Press(string keyname) {
+            appWin.Keyborad.KeyPress(keyname);
+        }
+
+        public void Press(int keycode) {
+            appWin.Keyborad.KeyPress(keycode);
+        }
+
+        public void KeyDown(string keyname) {
+            appWin.Keyborad.KeyPress(keyname);
+        }
+
+        public void KeyDown(int keycode) {
+            appWin.Keyborad.KeyPress(keycode);
+        }
+
+        public void KeyUp(string keyname) {
+            appWin.Keyborad.KeyUp(keyname);
+        }
+
+        public void KeyUp(int keycode) {
+            appWin.Keyborad.KeyUp(keycode);
+        }
+
+        public void ShortcutKey(string shortcut) {
+            //处理快捷键 组合键
+        }
+
         #endregion
 
         #region 事件
@@ -277,8 +315,14 @@ namespace SugoiTestFramwork
 
         #endregion
 
-        #region 工具
+        #region 测试工具
+        public void AssertExist(string img, string message, int timeout = 0) {
+            AssertTrue(Exists(img,timeout), message);
+        }
 
+        public void AssertNotExist(string img, string message, int timeout = 0) {
+            AssertFalse(Exists(img, timeout), message);
+        }
         #endregion
 
         #region 静态方法

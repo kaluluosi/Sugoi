@@ -15,6 +15,7 @@ namespace SugoiTestFramwork {
                 Action cleanUp,
                 List<TestMethod> testMethods
             ) {
+                TestMethods = new List<TestMethod>();
             SetUpClass = setUpClass;
             TearDownClass = tearDownClass;
             SetUp = setUp;
@@ -29,7 +30,7 @@ namespace SugoiTestFramwork {
         public Action TearDown { get; private set; }
         public Action CleanUp { get; private set; }
 
-        public List<TestMethod> TestMethods { get; private set; } = new List<TestMethod>();
+        public List<TestMethod> TestMethods { get; private set; } 
 
 
         public TestResult Run(TestResult result) {

@@ -39,12 +39,20 @@ namespace DmNet.Input
             return WaitKey(String2Keys(keyname), timeout);
         }
 
+        public void KeyDown(int keycode) {
+            win.Dmsoft.KeyDown(keycode);
+        }
+
         public void KeyDown(Keys key) {
             win.Dmsoft.KeyDown((int)key);
         }
 
         public void KeyDown(string keyname) {
             win.Dmsoft.KeyDownChar(keyname);
+        }
+
+        public void KeyPress(int keycode) {
+            win.Dmsoft.KeyPress(keycode);
         }
 
         public void KeyPress(Keys key) {
@@ -55,12 +63,20 @@ namespace DmNet.Input
             win.Dmsoft.KeyPressChar(keyname);
         }
 
+        public void KeyUp(int keycode) {
+            win.Dmsoft.KeyPress(keycode);
+        }
+
         public void KeyUp(Keys key) {
             win.Dmsoft.KeyUp((int)key);
         }
 
         public void KeyUp(string keyname) {
             win.Dmsoft.KeyUpChar(keyname);
+        }
+
+        public bool IsDown(int keycode) {
+            return win.Dmsoft.GetKeyState(keycode) == 1;
         }
 
         public bool IsDown(Keys key) {
@@ -70,6 +86,10 @@ namespace DmNet.Input
         public bool IsDown(string keyname) {
             Keys k = String2Keys(keyname);
             return IsDown(k);
+        }
+
+        public bool IsUp(int keycode) {
+            return win.Dmsoft.GetKeyState(keycode) == 0;
         }
 
         public bool IsUp(Keys key) {
