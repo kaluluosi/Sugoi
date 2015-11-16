@@ -79,7 +79,12 @@ namespace SugoiTestFramwork
 
 
         #region 查找
-        public Point Find(ImgPattern imgPtn) {
+        /// <summary>
+        /// 快速查找图像，不重试直接找当前帧的图像，找不到就抛错。
+        /// </summary>
+        /// <param name="imgPtn"></param>
+        /// <returns></returns>
+        public Point FindFast(ImgPattern imgPtn) {
             //自动等待一个间隔
             Wait(opInterval);
             Point p;
@@ -99,8 +104,36 @@ namespace SugoiTestFramwork
             return p;
         }
 
-        public Point Find(string imgs) {
-            return Find(new ImgPattern(imgs));
+
+        public Point FindFast(string imgs) {
+            return FindFast(new ImgPattern(imgs));
+        }
+
+        /// <summary>
+        /// 查找图像，会不断重试直到找到或超时抛错
+        /// </summary>
+        /// <param name="imgPtn"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public Point Find(ImgPattern imgPtn,int timeout=0) {
+            int waitTimeOut = timeout == 0 ? autoWaitTimeout : timeout;
+            Clock.Start();
+            while (Clock.Tick() < waitTimeOut) {
+                Point p;
+                if (imgPtn.IsFullScreen) {
+                    p = appWin.IR.FindPic(imgPath + imgPtn.Images, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+                }
+                else {
+                    p = appWin.IR.FindPic(imgPtn.X1, imgPtn.Y1, imgPtn.X2, imgPtn.Y2, imgPath + imgPtn.Images, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+                }
+                if (IR.PointExist(p) == false) continue;
+                return p;
+            }
+            throw new FindFailException(imgPtn.Images);
+        }
+
+        public Point Find(string imgs, int timeout = 0) {
+            return Find(new ImgPattern(imgs), timeout);
         }
 
         /// <summary>
@@ -117,8 +150,7 @@ namespace SugoiTestFramwork
                 waitTimeOut = timeout;
             Clock.Start();
             //循环等待检测直到找到或超时
-            double msecond = Clock.Tick();
-            while((msecond = Clock.Tick()) < waitTimeOut) {
+            while(Clock.Tick() < waitTimeOut) {
                 Point p;
                 if(imgPtn.IsFullScreen) {
                     p = appWin.IR.FindPic(ImgPath+imgPtn.Images, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
@@ -199,7 +231,7 @@ namespace SugoiTestFramwork
         #region 鼠标
 
         public void Click(ImgPattern imgPtn) {
-            Point p = Find(imgPtn);
+            Point p = FindFast(imgPtn);
             appWin.Mouse.LeftClick(p.X, p.Y);
         }
 
@@ -209,16 +241,16 @@ namespace SugoiTestFramwork
         }
 
         public void DoubleClick(ImgPattern imgPtn) {
-            Point p = Find(imgPtn);
+            Point p = FindFast(imgPtn);
             appWin.Mouse.LeftDoubleClick(p.X, p.Y);
         }
         public void DoubleClick(string imgs) {
-            Point p = Find(new ImgPattern(imgs));
+            Point p = FindFast(new ImgPattern(imgs));
             appWin.Mouse.LeftDoubleClick(p.X, p.Y);
         }
 
         public void RightClick(ImgPattern imgPtn) {
-            Point p = Find(imgPtn);
+            Point p = FindFast(imgPtn);
             appWin.Mouse.RightClick(p.X, p.Y);
         }
 
@@ -227,7 +259,7 @@ namespace SugoiTestFramwork
         }
 
         public void Hover(ImgPattern imgPtn) {
-            Point p = Find(imgPtn);
+            Point p = FindFast(imgPtn);
             appWin.Mouse.MoveTo(p.X, p.Y);
         }
 
