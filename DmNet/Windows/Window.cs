@@ -12,10 +12,7 @@ using DmNet.OCR;
 
 namespace DmNet.Windows
 {
-
-
-
-
+    
     public class Window
     {
         public static readonly Window Destop = new Window();
@@ -44,7 +41,6 @@ namespace DmNet.Windows
         /// <param name="hwnd">句柄</param>
         public Window(int hwnd) {
             this.Hwnd = hwnd;
-            this.BindingDmsoft(BindingInfo.DefaultForeground);
         }
 
 

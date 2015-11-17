@@ -1,0 +1,8 @@
+D:\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe.config
+D:\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe
+D:\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.pdb
+D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.Form1.resources
+D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.Properties.Resources.resources
+D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.csproj.GenerateResource.Cache
+D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.exe
+D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.pdb
