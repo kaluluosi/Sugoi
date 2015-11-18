@@ -11,7 +11,7 @@ namespace SugoiTestFramwork
     /// 用来记录模式匹配需要的各种参数
     /// 为了能让python使用，函数做了些调整。
     /// </summary>
-    public class Pattern
+    public abstract class Pattern
     {
         private double similar = 0.9;
         private int direction = 0;
