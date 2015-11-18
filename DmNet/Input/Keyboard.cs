@@ -43,6 +43,10 @@ namespace DmNet.Input
             win.Dmsoft.KeyDown(keycode);
         }
 
+        /// <summary>
+        /// 使用windows.forms的keys枚举来触发按键
+        /// </summary>
+        /// <param name="key"></param>
         public void KeyDown(Keys key) {
             win.Dmsoft.KeyDown((int)key);
         }
@@ -55,6 +59,10 @@ namespace DmNet.Input
             win.Dmsoft.KeyPress(keycode);
         }
 
+        /// <summary>
+        /// 使用windows.forms的keys枚举来触发按键
+        /// </summary>
+        /// <param name="key"></param>
         public void KeyPress(Keys key) {
             win.Dmsoft.KeyPress((int)key);
         }
@@ -67,6 +75,10 @@ namespace DmNet.Input
             win.Dmsoft.KeyPress(keycode);
         }
 
+        /// <summary>
+        /// 使用windows.forms的keys枚举来触发按键
+        /// </summary>
+        /// <param name="key"></param>
         public void KeyUp(Keys key) {
             win.Dmsoft.KeyUp((int)key);
         }
@@ -79,6 +91,10 @@ namespace DmNet.Input
             return win.Dmsoft.GetKeyState(keycode) == 1;
         }
 
+        /// <summary>
+        /// 使用windows.forms的keys枚举来触发按键
+        /// </summary>
+        /// <param name="key"></param>
         public bool IsDown(Keys key) {
             return win.Dmsoft.GetKeyState((int)key)==1;
         }
@@ -92,6 +108,10 @@ namespace DmNet.Input
             return win.Dmsoft.GetKeyState(keycode) == 0;
         }
 
+        /// <summary>
+        /// 使用windows.forms的keys枚举来触发按键
+        /// </summary>
+        /// <param name="key"></param>
         public bool IsUp(Keys key) {
             return win.Dmsoft.GetKeyState((int)key)==0;
         }
