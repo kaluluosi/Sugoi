@@ -47,6 +47,7 @@ namespace SugoiTestFramwork.Tests
             Assert.IsFalse(sugoi.Exists("xiang.bmp"));
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         [TestMethod]
         public void WaitVanishFailTest() {
@@ -70,6 +71,8 @@ namespace SugoiTestFramwork.Tests
             }
             Assert.IsTrue(true,"computer消失成功");
 =======
+=======
+>>>>>>> origin/master
         
         [TestMethod]
         public void FindAllTest() {
@@ -77,6 +80,9 @@ namespace SugoiTestFramwork.Tests
             foreach(var m in matchs) {
                 sugoi.Click(m);
             }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
         }
     }
