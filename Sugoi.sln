@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugoiTestFramwork", "SugoiTestFramwork\SugoiTestFramwork.csproj", "{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWindow", "TestWindow\TestWindow.csproj", "{6BE9A3F6-299B-44CD-A336-532C1A538B89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
