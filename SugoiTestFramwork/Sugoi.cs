@@ -20,7 +20,7 @@ namespace SugoiTestFramwork
     /// </summary>
     public class Sugoi:SugoiTest
     {
-        private static Process app = new Process();
+        public static readonly Process app = new Process();
         private Window appWin = Window.Destop;
         private static string imgPath = "";
 
@@ -28,16 +28,8 @@ namespace SugoiTestFramwork
         /// 自动等待超时
         /// </summary>
         private int autoWaitTimeout = 3000;
+        private int opInterval = 400;
 
-        /// <summary>
-        /// 操作间隔
-        /// </summary>
-        private int opInterval = 500;
-
-
-        public Sugoi() {
-
-        }
 
         /// <summary>
         /// 测试的软件的窗口对象
@@ -59,10 +51,6 @@ namespace SugoiTestFramwork
 
         public void SetAutoWaitTimeout(int timeout) {
             this.autoWaitTimeout = timeout;
-        }
-
-        public void SetOpInterval(int millisecond) {
-            opInterval = millisecond;
         }
 
        
@@ -157,6 +145,20 @@ namespace SugoiTestFramwork
         }
 
         /// <summary>
+        /// 判断图片是否不存在,不循环检测，直接查找然后返回
+        /// </summary>
+        /// <param name="imgPtn"></param>
+        /// <returns></returns>
+        public bool NotExist(ImgPattern imgPtn) {
+            Point p = FindFast(imgPtn);
+            return IR.PointExist(p) == false;
+        }
+
+        public bool NotExist(string picName) {
+            return NotExist(new ImgPattern(picName));
+        }
+
+        /// <summary>
         /// 等待一个固定的时间
         /// </summary>
         /// <param name="millisecond"></param>
@@ -190,8 +192,7 @@ namespace SugoiTestFramwork
             Clock.Start();
             //循环等待检测直到找到或超时
             while(Clock.Tick() < waitTimeOut) {
-                Point p = FindFast(imgPtn);
-                if(IR.PointExist(p) == false)
+                if(NotExist(imgPtn))
                     return;
             }
 
@@ -209,10 +210,11 @@ namespace SugoiTestFramwork
         public void Click(ImgPattern imgPtn) {
             Point p = Find(imgPtn);
             appWin.Mouse.LeftClick(p.X, p.Y);
+            Wait(opInterval);
         }
 
         public void Click(string picNames) {
-            Click(picNames);
+            Click(new ImgPattern(picNames));
         }
 
         public void Click(Point p) {
@@ -222,6 +224,7 @@ namespace SugoiTestFramwork
         public void DoubleClick(ImgPattern imgPtn) {
             Point p = Find(imgPtn);
             appWin.Mouse.LeftDoubleClick(p.X, p.Y);
+            Wait(opInterval);
         }
         public void DoubleClick(string picNames) {
             DoubleClick(new ImgPattern(picNames));
@@ -234,6 +237,7 @@ namespace SugoiTestFramwork
         public void RightClick(ImgPattern imgPtn) {
             Point p = Find(imgPtn);
             appWin.Mouse.RightClick(p.X, p.Y);
+            Wait(opInterval);
         }
 
         public void RightClick(string picNames) {
@@ -247,6 +251,7 @@ namespace SugoiTestFramwork
         public void Hover(ImgPattern imgPtn) {
             Point p = Find(imgPtn);
             appWin.Mouse.MoveTo(p.X, p.Y);
+            Wait(opInterval);
         }
 
         public void Hover(string img) {
@@ -262,6 +267,7 @@ namespace SugoiTestFramwork
             appWin.Mouse.LeftDown();
             Hover(toImgPtn);
             appWin.Mouse.LeftUp();
+            Wait(opInterval);
         }
 
         public void DragDrop(string fromImg, string toImg) {
@@ -273,41 +279,33 @@ namespace SugoiTestFramwork
             appWin.Mouse.LeftDown();
             Hover(to);
             appWin.Mouse.LeftUp();
+            Wait(opInterval);
         }
         #endregion
 
         #region 键盘
         /// <summary>
-        /// 清楚文本框内容 输入新内容
+        /// 清除文本框内容 输入新内容
         /// </summary>
         /// <param name="imgPtn"></param>
         /// <param name="text"></param>
         public void Say(ImgPattern imgPtn,string text) {
             DoubleClick(imgPtn);
-            appWin.Keyborad.KeyPress(Keys.Control);
-            appWin.Keyborad.KeyPress(Keys.A);
-            appWin.Keyborad.KeyUp(Keys.Control);
-            appWin.Keyborad.KeyUp(Keys.A);
-            appWin.Keyborad.KeyPress(Keys.Delete);
             appWin.Say(text);
         }
 
-        public void Say(string text) {
-            appWin.Say(text);
+        public void Say(string picName,string text) {
+            Say(new ImgPattern(picName),text);
         }
 
         public void Say(Point p,string text) {
             DoubleClick(p);
-            appWin.Keyborad.KeyPress(Keys.Control);
-            appWin.Keyborad.KeyPress(Keys.A);
-            appWin.Keyborad.KeyUp(Keys.Control);
-            appWin.Keyborad.KeyUp(Keys.A);
-            appWin.Keyborad.KeyPress(Keys.Delete);
             appWin.Say(text);
         }
 
         public void Enter() {
             appWin.Keyborad.KeyPress(Keys.Enter);
+            Wait(opInterval);
         }
 
         public void Press(string keyname) {
@@ -340,11 +338,19 @@ namespace SugoiTestFramwork
         /// <param name="shortcut"></param>
         public void ShortcutKey(string shortcut) {
             //处理快捷键 组合键
+            string[] keynames = shortcut.Split('+');
+            foreach(string key in keynames) {
+                KeyDown(key);
+            }
+            foreach(string key in keynames) {
+                KeyUp(key);
+            }
         }
 
         #endregion
 
         #region 事件
+        private List<System.Timers.Timer> timers = new List<System.Timers.Timer>();
 
         public void OnApear(ImgPattern imgPtn,Action<ImgPattern> action){
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -352,16 +358,39 @@ namespace SugoiTestFramwork
                 if(Exists(imgPtn))
                     action(imgPtn);
             };
-            timer.Start();
+            timers.Add(timer);
         }
 
         public void OnApear(string picNames, Action<ImgPattern> action) {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += delegate (object sender, System.Timers.ElapsedEventArgs e) {
-                if (Exists(picNames))
-                    action(new ImgPattern(picNames));
-            };
-            timer.Start();
+            OnApear(new ImgPattern(picNames), action);
+        }
+
+        /// <summary>
+        /// 开始监听事件
+        /// </summary>
+        /// <param name="timeout">监听持续多少时间后停止</param>
+        public void Observer(int timeout=-1) {
+            foreach(System.Timers.Timer t in timers) {
+                t.Start();
+            }
+            if(timeout >= 0) {
+                System.Timers.Timer timer = new System.Timers.Timer();
+                timer.AutoReset = false;
+                timer.Interval = timeout;
+                timer.Elapsed += delegate(object sender, System.Timers.ElapsedEventArgs e) {
+                    StopObserver();
+                };
+                timer.Start();
+            }
+        }
+
+        /// <summary>
+        /// 停止监听
+        /// </summary>
+        public void StopObserver() {
+            foreach(System.Timers.Timer t in timers) {
+                t.Stop();
+            }
         }
 
         #endregion
@@ -375,24 +404,34 @@ namespace SugoiTestFramwork
             AssertFalse(Exists(img, timeout), message);
         }
 
-        public void RunAndBindApp(string exePath,string mode = "Foreground") {
-            RunApp(exePath);
-            Thread.Sleep(300);
+        public void RunAndBindApp(string exePath,string arguments="",string mode = "Foreground") {
+            RunApp(exePath,arguments);
+            Thread.Sleep(1000);
             appWin = new Window(app.MainWindowHandle.ToInt32());
             switch (mode) {
                 case "Foreground":
                     appWin.BindingDmsoft(BindingInfo.DefaultForeground);
                     break;
                 case "Background":
-                    appWin.BindingDmsoft(BindingInfo.DxBackground);
+                    appWin.BindingDmsoft(BindingInfo.DefaultBackground);
                     break;
             }
             if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);
         }
 
-        public void RunApp(string exePath) {
+        public void RunApp(string exePath,string arguments="") {
             app.StartInfo.FileName =exePath;
+            app.StartInfo.Arguments = arguments;
             app.Start();
+        }
+
+        /// <summary>
+        /// 用浏览器打开链接
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="borwserPath"></param>
+        public void Browser(string url, string borwserPath = @"C:\Program Files\Internet Explorer\iexplore.exe") {
+            RunAndBindApp(borwserPath, url);
         }
 
         public void CloseApp() {
@@ -413,7 +452,7 @@ namespace SugoiTestFramwork
                     appWin.BindingDmsoft(BindingInfo.DefaultForeground);
                     break;
                 case "Background":
-                    appWin.BindingDmsoft(BindingInfo.DxBackground);
+                    appWin.BindingDmsoft(BindingInfo.DefaultBackground);
                     break;
             }
             if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);

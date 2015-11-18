@@ -61,6 +61,7 @@ namespace DmNet.Windows
 
         /// <summary>
         /// 客户区大小
+        /// 没有绑定窗口使用的话将获的0
         /// </summary>
         public Size ClientSize {
             get {
@@ -288,12 +289,15 @@ namespace DmNet.Windows
 
         /// <summary>
         /// 为窗口绑定独立的dm对象,没有为窗口对象绑定dm的话，窗口中调用键鼠和图像识别将是对整个屏幕操作。
+        /// 如果绑定的句柄为0或-1，直接抛错。
         /// </summary>
         /// <param name="dm"></param>
         /// <param name="info"></param>
         /// <returns></returns>
         public bool BindingDmsoft(dmsoft dm, BindingInfo info) {
             this.dm = dm;
+            if(Hwnd <= 0)
+                throw new InvalidHandleException(Hwnd, "Invalid Handle");
             int result = dm.BindWindow(this.Hwnd, info.Display.ToString(), info.Mouse.ToString(), info.Keyboard.ToString(), (int)info.Mode);
             IsBinding = result == 1 ? true : false;
             return IsBinding;
@@ -386,6 +390,12 @@ namespace DmNet.Windows
                 result = dm.SendString2(Hwnd, msg);
             }
             return Convert.ToBoolean(result);
+            
+        }
+
+        public void PasteString(string msg) {
+            dm.SetClipboard(msg);
+            dm.SendPaste(Hwnd);
         }
 
 
@@ -447,6 +457,7 @@ namespace DmNet.Windows
 
         /// <summary>
         /// 截取客户区画面保存为png
+        /// 如果没有绑定窗口
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>

@@ -6,3 +6,13 @@ D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.Properties.Resources.resources
 D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.csproj.GenerateResource.Cache
 D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.exe
 D:\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe.config
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.csprojResolveAssemblyReference.cache
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.Form1.resources
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.Properties.Resources.resources
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.csproj.GenerateResource.Cache
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.exe
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.pdb
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.g.resources

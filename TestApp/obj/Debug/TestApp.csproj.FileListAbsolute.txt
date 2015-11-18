@@ -45,3 +45,4 @@ D:\GitHub\Sugoi\TestApp\bin\Debug\Microsoft.Scripting.AspNet.xml
 D:\GitHub\Sugoi\TestApp\bin\Debug\Microsoft.Scripting.Metadata.xml
 D:\GitHub\Sugoi\TestApp\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 D:\GitHub\Sugoi\TestApp\bin\Debug\Lib\testM.py
+C:\Users\dengxuan\Documents\GitHub\Sugoi\TestApp\bin\Debug\keys.py

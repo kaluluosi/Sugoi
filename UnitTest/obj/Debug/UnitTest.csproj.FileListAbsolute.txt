@@ -41,3 +41,13 @@ D:\GitHub\Sugoi\UnitTest\bin\Debug\IronPython.xml
 D:\GitHub\Sugoi\UnitTest\bin\Debug\Microsoft.Dynamic.xml
 D:\GitHub\Sugoi\UnitTest\bin\Debug\Microsoft.Scripting.Metadata.xml
 D:\GitHub\Sugoi\UnitTest\bin\Debug\checkbox.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\keys.py
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\checkbox.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\baidulogo.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\BtnVanish.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\BtnAppear.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\end.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\flag.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\slidestrip.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\textbox.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\textboxflag.bmp

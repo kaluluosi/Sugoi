@@ -14,76 +14,91 @@ namespace SugoiTestFramwork.Tests
     {
         private static Sugoi sugoi = new Sugoi();
 
-        [ClassInitialize()]
-        public static void UnitTestInit(TestContext testContext) {
-            sugoi.RunAndBindApp(@"D:\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe");
-            //sugoi.RunApp(@"D:\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe");
+        [TestInitialize()]
+        public void UnitTestInit() {
+            sugoi.RunAndBindApp(@"C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\bin\Debug\TestWindow.exe", mode: "Foreground");
             sugoi.Wait(500);
+            //sugoi.AppWin.Minimize();
         }
 
-        [ClassCleanup()]
-        public static void UnitTestCleanup() {
-            //sugoi.CloseApp();
+        [TestCleanup()]
+        public void UnitTestCleanup() {
+            sugoi.CloseApp();
         }
 
-        [Ignore]
-        [TestMethod()]
-        public void FindTest() {
-            var p = sugoi.Find("computer.bmp");
-            Assert.IsNotNull(p);
-        }
-
-        [Ignore]
-        [TestMethod()]
+        [TestMethod]
         public void ExistsTest() {
-            bool r = sugoi.Exists("computer.bmp");
-            Assert.IsTrue(r, "返回值理应为true，实际为false");
+            Assert.IsTrue(sugoi.Exists("computer.bmp"), "理应找得到computer,实际没找到");
         }
 
-        [Ignore]
         [TestMethod]
-        public void DragDropTest() {
-            sugoi.DragDrop("xiang.bmp", "flod.bmp");
-            Assert.IsFalse(sugoi.Exists("xiang.bmp"));
+        public void NotExistTest() {
+            sugoi.Click("BtnVanish.bmp");
+            sugoi.Wait(1300);
+            Assert.IsTrue(sugoi.NotExist("computer.bmp"), "理应找不到computer.bmp，实际找到了。可能绑定后台失败了。");
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-        [TestMethod]
-        public void WaitVanishFailTest() {
-            try {
-                sugoi.WaitVanish("computer.bmp");
-            }
-            catch(System.Exception ex) {
-                //computer 没消失
-                Assert.IsTrue(ex is VanishFailException);
-            }
-        }
-        [TestMethod]
-        public void WaitVanishSuccessTest() {
-
-            try {
-                sugoi.WaitVanish("computer.bmp");
-            }
-            catch(System.Exception ex) {
-                //computer 没消失
-                Assert.Fail("computer没消失！？");
-            }
-            Assert.IsTrue(true,"computer消失成功");
-=======
-=======
->>>>>>> origin/master
-        
         [TestMethod]
         public void FindAllTest() {
-            var matchs = sugoi.FindAll(new ImgPattern("checkbox.bmp") {Offset_X=10,Offset_Y=10 });
+            var matchs = sugoi.FindAll("checkbox.bmp");
             foreach(var m in matchs) {
                 sugoi.Click(m);
             }
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
+            AssertNotExist("checkbox.bmp");
+        }
+        [TestMethod]
+        public void WaitTest() {
+            sugoi.Click("BtnVanish.bmp");
+            try {
+                sugoi.WaitVanish("computer.bmp");
+            }
+            catch(Exception e) {
+                Assert.Fail("computer理应消失");
+            }
+            sugoi.Click("BtnAppear.bmp");
+            try {
+                sugoi.Wait("computer.bmp");
+            }
+            catch(Exception e) {
+                Assert.Fail("computer理应显示");
+            }
+        }
+
+        [TestMethod]
+        public void DoubleClickTest() {
+            sugoi.DoubleClick("computer.bmp");
+            AssertNotExist("computer.bmp");
+        }
+
+        [TestMethod]
+        public void RightClickTest() {
+            sugoi.RightClick("computer.bmp");
+            AssertNotExist("computer.bmp");
+        }
+
+        [TestMethod]
+        public void SayTest() {
+            sugoi.Say("textbox.bmp","hello");
+
+            AssertExist("textboxflag.bmp");
+        }
+
+        [Ignore]
+        [TestMethod]
+        public void OpenUrlTest() {
+            sugoi.Browser("www.baidu.com");
+            sugoi.Wait(1000);
+            int handle = Sugoi.app.MainWindowHandle.ToInt32();
+            Assert.IsTrue(handle != 0, "没有获得浏览器窗口句柄");
+            sugoi.Wait(1000);
+            AssertExist("baidulogo.bmp");
+        }
+
+        public void AssertExist(string picName) {
+            Assert.IsTrue(sugoi.Exists(picName), "理应找得到{0},实际没找到",picName);
+        }
+        public void AssertNotExist(string picName) {
+            Assert.IsTrue(sugoi.NotExist(picName), "理应找不到{0},实际找到",picName);
         }
     }
 }
