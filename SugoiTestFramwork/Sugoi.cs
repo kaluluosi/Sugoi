@@ -11,6 +11,7 @@ using IronPython.Hosting;
 using System.Runtime.Remoting;
 using System.Threading;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace SugoiTestFramwork
 {
@@ -19,6 +20,7 @@ namespace SugoiTestFramwork
     /// </summary>
     public class Sugoi:SugoiTest
     {
+        private static Process app = new Process();
         private Window appWin = Window.Destop;
         private static string imgPath = "";
 
@@ -63,20 +65,7 @@ namespace SugoiTestFramwork
             opInterval = millisecond;
         }
 
-        public void BindingWindow(string title,string mode) {
-            appWin = Window.FindWindow(title);
-            if (appWin == null) throw new Exception("Binding window fail.Can't find "+title);
-            switch (mode) {
-                case "Foreground":
-                    appWin.BindingDmsoft(BindingInfo.DefaultForeground);
-                    break;
-                case "Background":
-                    appWin.BindingDmsoft(BindingInfo.DxBackground);
-                    break;
-            }
-            if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);
-        }
-
+       
 
         #region 查找
         /// <summary>
@@ -87,10 +76,10 @@ namespace SugoiTestFramwork
         public Point FindFast(ImgPattern imgPtn) {
             Point p;
             if(imgPtn.IsFullScreen) {
-                p = appWin.IR.FindPic(imgPath+ imgPtn.Images, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+                p = appWin.IR.FindPic(imgPath+ imgPtn.PicNames, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
             }
             else {
-                p = appWin.IR.FindPic(imgPtn.X1, imgPtn.Y1, imgPtn.X2, imgPtn.Y2,imgPath+ imgPtn.Images, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+                p = appWin.IR.FindPic(imgPtn.X1, imgPtn.Y1, imgPtn.X2, imgPtn.Y2,imgPath+ imgPtn.PicNames, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
             }
 
             //没有找到就直接返回
@@ -103,9 +92,21 @@ namespace SugoiTestFramwork
             return p;
         }
 
+        public Point FindFast(string picNames) {
+            return FindFast(new ImgPattern(picNames));
+        }
 
-        public Point FindFast(string imgs) {
-            return FindFast(new ImgPattern(imgs));
+
+        public List<Point> FindAll(ImgPattern imgPtn) {
+            List<Point> matchs = new List<Point>();
+            matchs = appWin.IR.FindAllPic(imgPtn.PicNames, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+            var temp = from m in matchs
+                       select new Point() { X = m.X + imgPtn.Offset_X, Y = m.Y + imgPtn.Offset_Y };
+            return temp.ToList();
+        }
+
+        public List<Point> FindAll(string picNames) {
+            return FindAll(new ImgPattern(picNames));
         }
 
         /// <summary>
@@ -123,12 +124,13 @@ namespace SugoiTestFramwork
                 return p;
             }
             //最后没有找到就抛错
-            throw new FindFailException(imgPtn.Images);
+            throw new FindFailException(imgPtn.PicNames);
         }
 
-        public Point Find(string imgs, int timeout = 0) {
-            return Find(new ImgPattern(imgs), timeout);
+        public Point Find(string picNames, int timeout = 0) {
+            return Find(new ImgPattern(picNames), timeout);
         }
+
 
         /// <summary>
         /// 循环等待判断图像是否存在，不抛出错误，返回值
@@ -148,8 +150,8 @@ namespace SugoiTestFramwork
             return false;
         }
 
-        public bool Exists(string imgs,int timeout=0) {
-            ImgPattern imgPtn = new ImgPattern(imgs);
+        public bool Exists(string picNames,int timeout=0) {
+            ImgPattern imgPtn = new ImgPattern(picNames);
             bool result = Exists(imgPtn,timeout);
             return result;
         }
@@ -171,11 +173,11 @@ namespace SugoiTestFramwork
             if(Exists(imgPtn, timeout))
                 return;
             else
-                throw new FindFailException(imgPtn.Images);
+                throw new FindFailException(imgPtn.PicNames);
         }
 
-        public void Wait(string imgs, int timeout = 0) {
-            Wait(new ImgPattern(imgs), timeout);
+        public void Wait(string picNames, int timeout = 0) {
+            Wait(new ImgPattern(picNames), timeout);
         }
 
         /// <summary>
@@ -193,11 +195,11 @@ namespace SugoiTestFramwork
                     return;
             }
 
-            throw new VanishFailException(imgPtn.Images);
+            throw new VanishFailException(imgPtn.PicNames);
         }
 
-        public void WaitVanish(string imgs, int timeout = 0) {
-            WaitVanish(new ImgPattern(imgs),timeout);
+        public void WaitVanish(string picNames, int timeout = 0) {
+            WaitVanish(new ImgPattern(picNames),timeout);
         }
 
         #endregion
@@ -209,8 +211,11 @@ namespace SugoiTestFramwork
             appWin.Mouse.LeftClick(p.X, p.Y);
         }
 
-        public void Click(string imgs) {
-            Point p = Find(imgs);
+        public void Click(string picNames) {
+            Click(picNames);
+        }
+
+        public void Click(Point p) {
             appWin.Mouse.LeftClick(p.X, p.Y);
         }
 
@@ -218,8 +223,11 @@ namespace SugoiTestFramwork
             Point p = Find(imgPtn);
             appWin.Mouse.LeftDoubleClick(p.X, p.Y);
         }
-        public void DoubleClick(string imgs) {
-            Point p = Find(new ImgPattern(imgs));
+        public void DoubleClick(string picNames) {
+            DoubleClick(new ImgPattern(picNames));
+        }
+
+        public void DoubleClick(Point p) {
             appWin.Mouse.LeftDoubleClick(p.X, p.Y);
         }
 
@@ -228,8 +236,12 @@ namespace SugoiTestFramwork
             appWin.Mouse.RightClick(p.X, p.Y);
         }
 
-        public void RightClick(string imgs) {
-            RightClick(new ImgPattern(imgs));
+        public void RightClick(string picNames) {
+            RightClick(new ImgPattern(picNames));
+        }
+
+        public void RightClick(Point p) {
+            appWin.Mouse.RightClick(p.X, p.Y);
         }
 
         public void Hover(ImgPattern imgPtn) {
@@ -241,6 +253,10 @@ namespace SugoiTestFramwork
             Hover(new ImgPattern(img));
         }
 
+        public void Hover(Point p) {
+            appWin.Mouse.MoveTo(p.X, p.Y);
+        }
+
         public void DragDrop(ImgPattern fromImgPtn, ImgPattern toImgPtn) {
             Hover(fromImgPtn);
             appWin.Mouse.LeftDown();
@@ -250,6 +266,13 @@ namespace SugoiTestFramwork
 
         public void DragDrop(string fromImg, string toImg) {
             DragDrop(new ImgPattern(fromImg), new ImgPattern(toImg));
+        }
+
+        public void DragDrop(Point from, Point to) {
+            Hover(from);
+            appWin.Mouse.LeftDown();
+            Hover(to);
+            appWin.Mouse.LeftUp();
         }
         #endregion
 
@@ -270,6 +293,16 @@ namespace SugoiTestFramwork
         }
 
         public void Say(string text) {
+            appWin.Say(text);
+        }
+
+        public void Say(Point p,string text) {
+            DoubleClick(p);
+            appWin.Keyborad.KeyPress(Keys.Control);
+            appWin.Keyborad.KeyPress(Keys.A);
+            appWin.Keyborad.KeyUp(Keys.Control);
+            appWin.Keyborad.KeyUp(Keys.A);
+            appWin.Keyborad.KeyPress(Keys.Delete);
             appWin.Say(text);
         }
 
@@ -301,6 +334,10 @@ namespace SugoiTestFramwork
             appWin.Keyborad.KeyUp(keycode);
         }
 
+        /// <summary>
+        /// 还没写好
+        /// </summary>
+        /// <param name="shortcut"></param>
         public void ShortcutKey(string shortcut) {
             //处理快捷键 组合键
         }
@@ -309,15 +346,23 @@ namespace SugoiTestFramwork
 
         #region 事件
 
-        public void OnApear(ImgPattern imgPtn,Action action){
+        public void OnApear(ImgPattern imgPtn,Action<ImgPattern> action){
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Elapsed += delegate(object sender, System.Timers.ElapsedEventArgs e) {
                 if(Exists(imgPtn))
-                    action();
+                    action(imgPtn);
             };
             timer.Start();
         }
 
+        public void OnApear(string picNames, Action<ImgPattern> action) {
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += delegate (object sender, System.Timers.ElapsedEventArgs e) {
+                if (Exists(picNames))
+                    action(new ImgPattern(picNames));
+            };
+            timer.Start();
+        }
 
         #endregion
 
@@ -329,12 +374,57 @@ namespace SugoiTestFramwork
         public void AssertNotExist(string img, string message, int timeout = 0) {
             AssertFalse(Exists(img, timeout), message);
         }
+
+        public void RunAndBindApp(string exePath,string mode = "Foreground") {
+            RunApp(exePath);
+            Thread.Sleep(300);
+            appWin = new Window(app.MainWindowHandle.ToInt32());
+            switch (mode) {
+                case "Foreground":
+                    appWin.BindingDmsoft(BindingInfo.DefaultForeground);
+                    break;
+                case "Background":
+                    appWin.BindingDmsoft(BindingInfo.DxBackground);
+                    break;
+            }
+            if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);
+        }
+
+        public void RunApp(string exePath) {
+            app.StartInfo.FileName =exePath;
+            app.Start();
+        }
+
+        public void CloseApp() {
+            if (app != null)
+                app.Kill();
+        }
+
+        /// <summary>
+        /// 找到窗口并绑定
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="mode"></param>
+        public void BindingWindow(string title, string mode) {
+            appWin = Window.FindWindow(title);
+            if (appWin == null) throw new Exception("Binding window fail.Can't find " + title);
+            switch (mode) {
+                case "Foreground":
+                    appWin.BindingDmsoft(BindingInfo.DefaultForeground);
+                    break;
+                case "Background":
+                    appWin.BindingDmsoft(BindingInfo.DxBackground);
+                    break;
+            }
+            if (appWin.IsBinding == false) throw new Exception("Binding window fail.Can't bind mode " + mode);
+        }
         #endregion
 
         #region 静态方法
         public static void SetImgPath(string path) {
             imgPath = path;
         }
+
         #endregion
     }
 }

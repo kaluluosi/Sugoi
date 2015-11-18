@@ -10,19 +10,19 @@ namespace SugoiTestFramwork
 {
     public class ImgPattern:Pattern
     {
-        private string imgs;
+        private string picNames;
         private string delta = "000000";
 
         public ImgPattern(string imgs) {
-            this.imgs = imgs;
+            this.picNames = imgs;
             Image img = Image.FromFile(Sugoi.ImgPath+imgs);
             Height = img.Height;
             Width = img.Width;
         }
 
-        public string Images{
+        public string PicNames{
             get {
-                return imgs;
+                return picNames;
             }
         }
 

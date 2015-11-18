@@ -93,14 +93,7 @@ namespace DmNet.ImageRecognition
         /// <returns></returns>
         public List<Point> FindAllColor(int x1, int y1, int x2, int y2, string color, double sim = 0.9, int dir = 0) {
             string result = win.Dmsoft.FindColorEx(x1, y1, x2, y2, color, sim, dir);
-            int count = win.Dmsoft.GetResultCount(result);
-            List<Point> points = new List<Point>();
-            COMParam<int> x = new COMParam<int>(0);
-            COMParam<int> y = new COMParam<int>(0);
-            for(int i = 0; i < count; i++) {
-                win.Dmsoft.GetResultPos(result, i, out x.Data, out y.Data);
-                points.Add(new Point(x.Value, y.Value));
-            }
+            List<Point> points = GetResultPoints(result);
             return points;
         }
 
@@ -149,24 +142,17 @@ namespace DmNet.ImageRecognition
         /// <param name="sim"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        public List<Point> FindMultiColorEx(int x1, int y1, int x2, int y2, string first_color, string offset_color, double sim = 0.9, int dir = 0) {
+        public List<Point> FindAllMutiColor(int x1, int y1, int x2, int y2, string first_color, string offset_color, double sim = 0.9, int dir = 0) {
             string result = win.Dmsoft.FindMultiColorEx(x1, y1, x2, y2, first_color, offset_color, sim, dir);
-            int count = win.Dmsoft.GetResultCount(result);
-            List<Point> points = new List<Point>();
-            COMParam<int> x = new COMParam<int>(0);
-            COMParam<int> y = new COMParam<int>(0);
-            for(int i = 0; i < count; i++) {
-                win.Dmsoft.GetResultPos(result, i, out x.Data, out y.Data);
-                points.Add(new Point(x.Value, y.Value));
-            }
+            List<Point> points = GetResultPoints(result);
             return points;
         }
 
         /// <summary>
         /// 全屏多点找所有色
         /// </summary>
-        public List<Point> FindMultiColorEx(string first_color, string offset_color, double sim = 0.9, int dir = 0) {
-            return FindMultiColorEx(0, 0, win.ClientSize.Width, win.ClientSize.Height, first_color, offset_color, sim, dir);
+        public List<Point> FindAllMutiColor(string first_color, string offset_color, double sim = 0.9, int dir = 0) {
+            return FindAllMutiColor(0, 0, win.ClientSize.Width, win.ClientSize.Height, first_color, offset_color, sim, dir);
         }
 
         /// <summary>
@@ -209,14 +195,7 @@ namespace DmNet.ImageRecognition
         /// <returns></returns>
         public List<Point> FindAllPic(int x1, int y1, int x2, int y2, string pic_name, string delta_color = "000000", double sim = 0.9, int dir = 0) {
             string result = win.Dmsoft.FindPicEx(x1, y1, x2, y2, pic_name, delta_color, sim, dir);
-            int count = win.Dmsoft.GetResultCount(result);
-            List<Point> points = new List<Point>();
-            COMParam<int> x = new COMParam<int>(0);
-            COMParam<int> y = new COMParam<int>(0);
-            for(int i = 0; i < count; i++) {
-                win.Dmsoft.GetResultPos(result, i, out x.Data, out y.Data);
-                points.Add(new Point(x.Value, y.Value));
-            }
+            List<Point> points = GetResultPoints(result);
             return points;
         }
 
@@ -230,6 +209,16 @@ namespace DmNet.ImageRecognition
 
         public static bool PointExist(Point p) {
             return p.X > 0 && p.Y > 0 ? true : false;
+        }
+
+        public static List<Point> GetResultPoints(string result) {
+            List<Point> points = new List<Point>();
+            string[] results = result.Split('|');
+            foreach(string match in results) {
+                string[] args = match.Split(',');
+                points.Add(new Point(int.Parse(args[1]), int.Parse(args[2])));
+            }
+            return points;
         }
     }
 }
