@@ -37,7 +37,7 @@ namespace SugoiTestFramwork {
         /// <returns></returns>
         public static TestCase LoadTestScript(string path) {
             path = Path.GetFullPath(path);
-            Sugoi.SetImgPath(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar);
+            Sugoi.SetScriptPath(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar);
 
             ScriptSource script = engine.CreateScriptSourceFromFile(path);
             script.Execute(Scope);

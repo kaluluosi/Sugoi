@@ -12,7 +12,6 @@ namespace SugoiTestFramwork {
         public override void Run(TestCase testCase) {
             Result = new TestResult();
             testCase.Run(Result);
-
             PrintResult();
         }
 

@@ -51,3 +51,4 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\flag.bmp
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\slidestrip.bmp
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\textbox.bmp
 C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\textboxflag.bmp
+C:\Users\dengxuan\Documents\GitHub\Sugoi\UnitTest\bin\Debug\btn.bmp

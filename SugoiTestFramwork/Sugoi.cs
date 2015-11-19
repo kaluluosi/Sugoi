@@ -22,7 +22,7 @@ namespace SugoiTestFramwork
     {
         public static readonly Process app = new Process();
         private Window appWin = Window.Destop;
-        private static string imgPath = "";
+        private static string scriptPath = "";
 
         /// <summary>
         /// 自动等待超时
@@ -43,9 +43,9 @@ namespace SugoiTestFramwork
             }
         }
 
-        public static string ImgPath {
+        public static string ScriptPath {
             get {
-                return imgPath;
+                return scriptPath;
             }
         }
 
@@ -64,10 +64,10 @@ namespace SugoiTestFramwork
         public Point FindFast(ImgPattern imgPtn) {
             Point p;
             if(imgPtn.IsFullScreen) {
-                p = appWin.IR.FindPic(imgPath+ imgPtn.PicNames, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+                p = appWin.IR.FindPic(scriptPath+ imgPtn.PicName, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
             }
             else {
-                p = appWin.IR.FindPic(imgPtn.X1, imgPtn.Y1, imgPtn.X2, imgPtn.Y2,imgPath+ imgPtn.PicNames, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+                p = appWin.IR.FindPic(imgPtn.X1, imgPtn.Y1, imgPtn.X2, imgPtn.Y2,scriptPath+ imgPtn.PicName, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
             }
 
             //没有找到就直接返回
@@ -80,21 +80,21 @@ namespace SugoiTestFramwork
             return p;
         }
 
-        public Point FindFast(string picNames) {
-            return FindFast(new ImgPattern(picNames));
+        public Point FindFast(string PicName) {
+            return FindFast(new ImgPattern(PicName));
         }
 
 
         public List<Point> FindAll(ImgPattern imgPtn) {
             List<Point> matchs = new List<Point>();
-            matchs = appWin.IR.FindAllPic(imgPtn.PicNames, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
+            matchs = appWin.IR.FindAllPic(imgPtn.PicName, imgPtn.Delta, imgPtn.Similar, imgPtn.Direction);
             var temp = from m in matchs
                        select new Point() { X = m.X + imgPtn.Offset_X, Y = m.Y + imgPtn.Offset_Y };
             return temp.ToList();
         }
 
-        public List<Point> FindAll(string picNames) {
-            return FindAll(new ImgPattern(picNames));
+        public List<Point> FindAll(string PicName) {
+            return FindAll(new ImgPattern(PicName));
         }
 
         /// <summary>
@@ -108,15 +108,17 @@ namespace SugoiTestFramwork
             Clock.Start();
             while (Clock.Tick() < waitTimeOut) {
                 Point p = FindFast(imgPtn);
-                if (IR.PointExist(p) == false) continue;
+                if(IR.PointExist(p) == false) {
+                    continue;
+                }
                 return p;
             }
             //最后没有找到就抛错
-            throw new FindFailException(imgPtn.PicNames);
+            throw new FindFailException(imgPtn.PicName);
         }
 
-        public Point Find(string picNames, int timeout = 0) {
-            return Find(new ImgPattern(picNames), timeout);
+        public Point Find(string PicName, int timeout = 0) {
+            return Find(new ImgPattern(PicName), timeout);
         }
 
 
@@ -138,8 +140,8 @@ namespace SugoiTestFramwork
             return false;
         }
 
-        public bool Exists(string picNames,int timeout=0) {
-            ImgPattern imgPtn = new ImgPattern(picNames);
+        public bool Exists(string PicName,int timeout=0) {
+            ImgPattern imgPtn = new ImgPattern(PicName);
             bool result = Exists(imgPtn,timeout);
             return result;
         }
@@ -175,11 +177,11 @@ namespace SugoiTestFramwork
             if(Exists(imgPtn, timeout))
                 return;
             else
-                throw new FindFailException(imgPtn.PicNames);
+                throw new FindFailException(imgPtn.PicName);
         }
 
-        public void Wait(string picNames, int timeout = 0) {
-            Wait(new ImgPattern(picNames), timeout);
+        public void Wait(string PicName, int timeout = 0) {
+            Wait(new ImgPattern(PicName), timeout);
         }
 
         /// <summary>
@@ -196,13 +198,34 @@ namespace SugoiTestFramwork
                     return;
             }
 
-            throw new VanishFailException(imgPtn.PicNames);
+            throw new VanishFailException(imgPtn.PicName);
         }
 
-        public void WaitVanish(string picNames, int timeout = 0) {
-            WaitVanish(new ImgPattern(picNames),timeout);
+        public void WaitVanish(string PicName, int timeout = 0) {
+            WaitVanish(new ImgPattern(PicName),timeout);
         }
 
+        #endregion
+
+        #region 文字识别
+        /// <summary>
+        /// 暂时还没实现好
+        /// </summary>
+        /// <param name="imgPtn"></param>
+        /// <param name="fontColor"></param>
+        /// <returns></returns>
+        public string Ocr(ImgPattern imgPtn,string fontColor) {
+            //没找到会自动抛错
+            Point p = Find(imgPtn);
+            int x1, y1, x2, y2;
+            x1 = p.X;
+            y1 = p.Y;
+            x2 = p.X + imgPtn.Width;
+            y2 = p.X + imgPtn.Height;
+
+            string text = appWin.Ocr.OcrScreen(x1, y1, x2, y2, fontColor, 0.8);
+            return text;
+        }
         #endregion
 
         #region 鼠标
@@ -213,8 +236,8 @@ namespace SugoiTestFramwork
             Wait(opInterval);
         }
 
-        public void Click(string picNames) {
-            Click(new ImgPattern(picNames));
+        public void Click(string PicName) {
+            Click(new ImgPattern(PicName));
         }
 
         public void Click(Point p) {
@@ -226,8 +249,8 @@ namespace SugoiTestFramwork
             appWin.Mouse.LeftDoubleClick(p.X, p.Y);
             Wait(opInterval);
         }
-        public void DoubleClick(string picNames) {
-            DoubleClick(new ImgPattern(picNames));
+        public void DoubleClick(string PicName) {
+            DoubleClick(new ImgPattern(PicName));
         }
 
         public void DoubleClick(Point p) {
@@ -240,8 +263,8 @@ namespace SugoiTestFramwork
             Wait(opInterval);
         }
 
-        public void RightClick(string picNames) {
-            RightClick(new ImgPattern(picNames));
+        public void RightClick(string PicName) {
+            RightClick(new ImgPattern(PicName));
         }
 
         public void RightClick(Point p) {
@@ -291,7 +314,10 @@ namespace SugoiTestFramwork
         /// <param name="text"></param>
         public void Say(ImgPattern imgPtn,string text) {
             DoubleClick(imgPtn);
-            appWin.Say(text);
+            ShortcutKey("LControl", "A");
+            Press("Back");
+            Window edit = Window.GetMousePointWindow();
+            edit.Say(text);
         }
 
         public void Say(string picName,string text) {
@@ -300,7 +326,8 @@ namespace SugoiTestFramwork
 
         public void Say(Point p,string text) {
             DoubleClick(p);
-            appWin.Say(text);
+            Window edit = Window.GetMousePointWindow();
+            edit.Say(text);
         }
 
         public void Enter() {
@@ -333,18 +360,21 @@ namespace SugoiTestFramwork
         }
 
         /// <summary>
-        /// 还没写好
+        /// Ctrl Alt键不能直接用Ctrl或Alt，要用LControl,LAlt
         /// </summary>
         /// <param name="shortcut"></param>
-        public void ShortcutKey(string shortcut) {
+        public void ShortcutKey(string control,string key) {
+            
             //处理快捷键 组合键
-            string[] keynames = shortcut.Split('+');
-            foreach(string key in keynames) {
-                KeyDown(key);
+            string[] ctrls = control.Split('+');
+            foreach(string c in ctrls) {
+                KeyDown(c);
             }
-            foreach(string key in keynames) {
-                KeyUp(key);
+            Press(key);
+            foreach(string c in ctrls) {
+                KeyUp(c);
             }
+
         }
 
         #endregion
@@ -361,8 +391,8 @@ namespace SugoiTestFramwork
             timers.Add(timer);
         }
 
-        public void OnApear(string picNames, Action<ImgPattern> action) {
-            OnApear(new ImgPattern(picNames), action);
+        public void OnApear(string PicName, Action<ImgPattern> action) {
+            OnApear(new ImgPattern(PicName), action);
         }
 
         /// <summary>
@@ -400,9 +430,19 @@ namespace SugoiTestFramwork
             AssertTrue(Exists(img,timeout), message);
         }
 
+        public void AssertExist(ImgPattern imgPtn, string message, int timeout = 0) {
+            AssertTrue(Exists(imgPtn, timeout), message);
+        }
+
+
         public void AssertNotExist(string img, string message, int timeout = 0) {
             AssertFalse(Exists(img, timeout), message);
         }
+
+        public void AssertNotExist(ImgPattern imgPtn, string message, int timeout = 0) {
+            AssertFalse(Exists(imgPtn, timeout), message);
+        }
+
 
         public void RunAndBindApp(string exePath,string arguments="",string mode = "Foreground") {
             RunApp(exePath,arguments);
@@ -430,7 +470,7 @@ namespace SugoiTestFramwork
         /// </summary>
         /// <param name="url"></param>
         /// <param name="borwserPath"></param>
-        public void Browser(string url, string borwserPath = @"C:\Program Files\Internet Explorer\iexplore.exe") {
+        public void Browser(string url, string borwserPath = @"C:\Program Files\Internet Explorer\iexplore.exe",string mode="Foreground") {
             RunAndBindApp(borwserPath, url);
         }
 
@@ -438,6 +478,11 @@ namespace SugoiTestFramwork
             if (app != null)
                 app.Kill();
         }
+
+        public void ScreenShot(string filename,string floder) {
+            appWin.ScreenShot(scriptPath+floder+filename);
+        }
+
 
         /// <summary>
         /// 找到窗口并绑定
@@ -460,8 +505,8 @@ namespace SugoiTestFramwork
         #endregion
 
         #region 静态方法
-        public static void SetImgPath(string path) {
-            imgPath = path;
+        public static void SetScriptPath(string path) {
+            scriptPath = path;
         }
 
         #endregion

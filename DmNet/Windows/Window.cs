@@ -377,7 +377,7 @@ namespace DmNet.Windows
 
         /// <summary>
         /// 往窗口输入文字。
-        /// 注：如果此函数调用后无效，那么应该是窗口句柄抓错了，换窗口里的子窗口试一下。
+        /// 注：如果此函数调用后无效，那么应该是窗口句柄抓错了,窗口必须是能接收输入的对象，比如textbox，换窗口里的子窗口试一下。
         /// </summary>
         /// <param name="msg">内容</param>
         /// <param name="ime">是否用ime输入[收费接口]</param>
@@ -465,16 +465,16 @@ namespace DmNet.Windows
             int result = 0;
             switch(imgType.ToLower()) {
                 case "png":
-                    result = dm.CapturePng(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+                    result = dm.CapturePng(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName+'.'+imgType);
                     break;
                 case "jpg":
-                    result = dm.CaptureJpg(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName,100);
+                    result = dm.CaptureJpg(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName + '.' + imgType, 100);
                     break;
                 case "bmp":
-                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName + '.' + imgType);
                     break;
                 default:
-                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName);
+                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName + '.' + imgType);
                     break;
             }
             return Convert.ToBoolean(result);

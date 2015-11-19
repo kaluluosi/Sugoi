@@ -1,1 +1,1 @@
-TestApp.exe TestCase\\test2.py
+TestApp.exe C:\Users\dengxuan\Desktop\TestCase\TestCase.py

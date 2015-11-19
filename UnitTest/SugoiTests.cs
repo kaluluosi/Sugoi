@@ -79,8 +79,16 @@ namespace SugoiTestFramwork.Tests
         [TestMethod]
         public void SayTest() {
             sugoi.Say("textbox.bmp","hello");
-
+            sugoi.Hover(new System.Drawing.Point(0, 0));
             AssertExist("textboxflag.bmp");
+        }
+
+        [Ignore]
+        [TestMethod]
+        public void OcrTest() {
+            /*var p = sugoi.Find(new ImgPattern("btn.bmp"){Similar=0.2});*/
+            string text = sugoi.Ocr(new ImgPattern("btn.bmp") { Similar = 0.2 }, "f8f8f9-000000|ffffff-000000|f8f8f9-000000|fcfcfc-000000|fbfbfc-000000|fbfbfc-000000|e9eae");
+            Assert.AreEqual("推荐阵容", text);
         }
 
         [Ignore]

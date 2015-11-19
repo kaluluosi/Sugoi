@@ -43,16 +43,22 @@ namespace SugoiTestFramwork {
 
                 foreach (TestMethod method in TestMethods) {
                     try {
+                        if(SetUp != null)
+                            SetUp();
                         method.Invoke();
+                        if(TearDown != null)
+                            TearDown();
                         if (CleanUp != null)
                             CleanUp();
                         result.AddSuccess(method);
                     }
                     catch (TestFailedException tfe) {
                         result.AddFailure(method, tfe);
+                        OnFailed(method);
                     }
                     catch (Exception e) {
                         result.AddError(method, e);
+                        OnError(method);
                     }
                 }
 
@@ -65,6 +71,19 @@ namespace SugoiTestFramwork {
 
             return result;
 
+        }
+
+        public event EventHandler<TestMethod> Failed;
+        public event EventHandler<TestMethod> Error;
+
+        public void OnFailed(TestMethod tm) {
+            if(Failed != null)
+                Failed(this, tm);
+        }
+
+        public void OnError(TestMethod tm) {
+            if(Error != null)
+                Error(this, tm);
         }
     }
 }
