@@ -480,7 +480,8 @@ namespace SugoiTestFramwork
         }
 
         public void ScreenShot(string filename,string floder) {
-            appWin.ScreenShot(scriptPath+floder+filename);
+            if(appWin!=null && appWin.Hwnd!=0)
+                appWin.ScreenShot(scriptPath+floder+filename);
         }
 
 
