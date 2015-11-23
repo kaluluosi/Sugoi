@@ -9,13 +9,14 @@ using System.Diagnostics;
 using DmNet.Input;
 using DmNet.ImageRecognition;
 using DmNet.OCR;
+using System.Runtime.InteropServices;
 
 namespace DmNet.Windows
 {
     
     public class Window
     {
-        public static readonly Window Destop = new Window();
+        public static readonly Window Desktop = new Window(GetDesktopWindow());
 
         /// <summary>
         /// 大漠插件对象
@@ -457,24 +458,28 @@ namespace DmNet.Windows
 
         /// <summary>
         /// 截取客户区画面保存为png
-        /// 如果没有绑定窗口
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
         public bool ScreenShot(string fileName,string imgType="bmp") {
+            int left = WindowRect.Left;
+            int top = WindowRect.Top;
+            int right = WindowRect.Right;
+            int bottom = WindowRect.Bottom;
+
             int result = 0;
             switch(imgType.ToLower()) {
                 case "png":
-                    result = dm.CapturePng(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName+'.'+imgType);
+                    result = dm.CapturePng(left,top,right,bottom, fileName+'.'+imgType);
                     break;
                 case "jpg":
-                    result = dm.CaptureJpg(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName + '.' + imgType, 100);
+                    result = dm.CaptureJpg(left, top, right, bottom, fileName + '.' + imgType, 100);
                     break;
                 case "bmp":
-                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName + '.' + imgType);
+                    result = dm.Capture(left, top, right, bottom, fileName + '.' + imgType);
                     break;
                 default:
-                    result = dm.Capture(WindowRect.Left, WindowRect.Top, WindowRect.Right, WindowRect.Bottom, fileName + '.' + imgType);
+                    result = dm.Capture(left, top, right, bottom, fileName + '.' + imgType);
                     break;
             }
             return Convert.ToBoolean(result);
@@ -564,6 +569,9 @@ namespace DmNet.Windows
             int hwnd = Dm.Default.GetPointWindow(x, y);
             return hwnd > 0 ? new Window(hwnd) : null;
         }
+
+        [DllImport("user32.dll")]
+        public static extern int GetDesktopWindow();
 
         /// <summary>
         /// 私有工具函数，用来将句柄字符串转换成窗口列表

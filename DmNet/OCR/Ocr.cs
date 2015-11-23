@@ -10,7 +10,7 @@ namespace DmNet.OCR
 {
     public class Ocr
     {
-        public static readonly Ocr GlobalOcr = new Ocr(Window.Destop);
+        public static readonly Ocr GlobalOcr = new Ocr(Window.Desktop);
         
         private Window win;
 

@@ -16,3 +16,6 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.csproj.
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.exe
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.pdb
 C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.g.resources
+D:\GitHub\Sugoi\Sugoi\TestWindow\bin\Debug\TestWindow.exe.config
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.exe
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.pdb

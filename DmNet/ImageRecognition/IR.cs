@@ -13,7 +13,7 @@ namespace DmNet.ImageRecognition
     /// </summary>
     public class IR
     {
-        public static readonly IR DestopIR = new IR(Window.Destop);
+        public static readonly IR DestopIR = new IR(Window.Desktop);
 
         private Window win;
 

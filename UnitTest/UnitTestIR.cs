@@ -92,7 +92,7 @@ namespace UnitTest
 
         [TestMethod]
         public void Case_DestopIRFindPic() {
-            Point p1 = Window.Destop.IR.FindPic("head.bmp", sim: 0.5f);
+            Point p1 = Window.Desktop.IR.FindPic("head.bmp", sim: 0.5f);
             Point p2 = IR.DestopIR.FindPic("head.bmp", sim: 0.5f);
             Assert.IsTrue(IR.PointExist(p1),"桌面查找失败");
             Assert.IsTrue(IR.PointExist(p2), "DestopIR 查找失败");

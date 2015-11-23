@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DmNet
-{
-    public class Destop
-    {
+namespace SugoiTestFramwork.Pattern {
+    class Match {
     }
 }

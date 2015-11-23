@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMParam.cs" />
-    <Compile Include="Destop.cs" />
     <Compile Include="Dm.cs" />
     <Compile Include="ImageRecognition\IR.cs" />
     <Compile Include="Input\Keyboard.cs" />

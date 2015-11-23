@@ -65,9 +65,9 @@
       <Project>{0e5aaef0-ce73-490c-82c1-ca56adeccec7}</Project>
       <Name>DmNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SugoiTestFramwork\SugoiTestFramwork.csproj">
+    <ProjectReference Include="..\SugoiTestFramwork\SugoiTestFramework.csproj">
       <Project>{3BD6AFF4-75E4-4F8C-942C-9132C8F8DAAE}</Project>
-      <Name>SugoiTestFramwork</Name>
+      <Name>SugoiTestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

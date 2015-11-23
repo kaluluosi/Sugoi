@@ -24,7 +24,6 @@ namespace TestApp {
         }
 
         static void tc_Error(object sender, TestMethod e) {
-            
             ScriptLoader.sugoi.ScreenShot(e.Name,@"Log/Error/");
         }
 

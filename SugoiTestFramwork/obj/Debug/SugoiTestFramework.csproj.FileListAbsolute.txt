@@ -1,0 +1,3 @@
+D:\GitHub\Sugoi\Sugoi\SugoiTestFramwork\obj\Debug\SugoiTestFramework.csprojResolveAssemblyReference.cache
+D:\GitHub\Sugoi\Sugoi\SugoiTestFramwork\obj\Debug\SugoiTestFramwork.dll
+D:\GitHub\Sugoi\Sugoi\SugoiTestFramwork\obj\Debug\SugoiTestFramwork.pdb

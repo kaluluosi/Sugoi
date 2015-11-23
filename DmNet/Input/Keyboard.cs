@@ -11,7 +11,7 @@ namespace DmNet.Input
 {
     public class Keyboard
     {
-        public static readonly Keyboard DestopKeyboard = new Keyboard(Window.Destop);
+        public static readonly Keyboard DestopKeyboard = new Keyboard(Window.Desktop);
 
         private Window win;
 

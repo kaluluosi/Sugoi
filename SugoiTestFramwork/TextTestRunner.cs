@@ -16,11 +16,14 @@ namespace SugoiTestFramwork {
         }
 
         public void PrintResult() {
-            Console.WriteLine("fails" + Result.Failures.Count);
-            Console.WriteLine("errors" + Result.Errors.Count);
+            Console.WriteLine("failures：" + Result.Failures.Count);
+            foreach(KeyValuePair<TestMethod,TestFailedException> kv in Result.Failures) {
+                Console.WriteLine("{0} {1}", kv.Key.Name, kv.Value.Message);
+            }
+
+            Console.WriteLine("errors：" + Result.Errors.Count);
             foreach (KeyValuePair<TestMethod, Exception> kv in Result.Errors) {
-                Console.WriteLine(kv.Key.Name);
-                Console.WriteLine(kv.Value.Message);
+                Console.WriteLine("{0} {1}", kv.Key.Name, kv.Value.Message);
             }
         }
     }

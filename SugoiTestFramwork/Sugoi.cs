@@ -21,7 +21,7 @@ namespace SugoiTestFramwork
     public class Sugoi:SugoiTest
     {
         public static readonly Process app = new Process();
-        private Window appWin = Window.Destop;
+        private Window appWin = Window.Desktop;
         private static string scriptPath = "";
 
         /// <summary>
@@ -480,8 +480,7 @@ namespace SugoiTestFramwork
         }
 
         public void ScreenShot(string filename,string floder) {
-            if(appWin!=null && appWin.Hwnd!=0)
-                appWin.ScreenShot(scriptPath+floder+filename);
+            appWin.ScreenShot(scriptPath+floder+filename);
         }
 
 

@@ -12,7 +12,7 @@ namespace DmNet.Input
 {
     public class Mouse
     {
-        public static readonly Mouse DestopMouse = new Mouse(Window.Destop);
+        public static readonly Mouse DestopMouse = new Mouse(Window.Desktop);
 
         private Window win;
 
