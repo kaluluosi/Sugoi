@@ -43,8 +43,36 @@ namespace DmNet
             }
         }
 
+        [DllImport(dllDefaultPath)]
+        public static extern int DllRegisterServer();
+        
+        [DllImport(dllDefaultPath)]
+        public static extern int DllUnregisterServer();
 
-        public static void RegistDM(string path = dllDefaultPath,bool showMsgBox=false) {
+        /// <summary>
+        /// 静默注册，注册失败会抛出异常
+        /// </summary>
+        public static void RegistDM() {
+            int ret = DllRegisterServer();
+            if(ret < 0) {
+                throw new RegistFailException();
+            }
+        }
+
+        /// <summary>
+        /// 静默卸载
+        /// </summary>
+        public static void UnregistDM() {
+            DllUnregisterServer();
+        }
+
+
+        /// <summary>
+        /// 命令行注册，需要管理员权限
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="showMsgBox"></param>
+        public static void RegistDMByCmd(string path = dllDefaultPath,bool showMsgBox=false) {
             if(File.Exists(dllDefaultPath) == false) {
                 throw new FileNotFoundException(dllDefaultPath + " is not found. Make sure the dll is in the root path.");
             }
@@ -62,7 +90,12 @@ namespace DmNet
             myProcess.Start();
         }
 
-        public static void UnregistDM(string path = dllDefaultPath,bool showMsgBox=false) {
+        /// <summary>
+        /// 命令行卸载，需要管理员权限
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="showMsgBox"></param>
+        public static void UnregistDMByCmd(string path = dllDefaultPath,bool showMsgBox=false) {
             if(File.Exists(dllDefaultPath) == false) {
                 throw new FileNotFoundException(dllDefaultPath + " is not found. Make sure the dll is in the root path.");
             }

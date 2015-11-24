@@ -53,8 +53,6 @@ namespace SugoiTestFramwork
             this.autoWaitTimeout = timeout;
         }
 
-       
-
         #region 查找
         /// <summary>
         /// 快速查找图像,直接查找当前帧

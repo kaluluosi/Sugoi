@@ -78,8 +78,11 @@
     <Compile Include="ImgPattern.cs" />
     <Compile Include="Pattern\ColorPattern.cs" />
     <Compile Include="Pattern\ImgPattern.cs" />
+    <Compile Include="Pattern\IOperable.cs" />
     <Compile Include="Pattern\Match.cs" />
     <Compile Include="Pattern\PatternBase.cs" />
+    <Compile Include="Pattern\Region.cs" />
+    <Compile Include="Pattern\Screen.cs" />
     <Compile Include="Pattern\StrPattern.cs" />
     <Compile Include="Sugoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

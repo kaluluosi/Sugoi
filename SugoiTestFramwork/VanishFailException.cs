@@ -8,7 +8,7 @@ namespace SugoiTestFramwork
 {
     public class VanishFailException:Exception
     {
-        public VanishFailException(string imgs):base(string.Format("{0} wasn't vanish.",imgs)) {
+        public VanishFailException(string imgs):base(string.Format("{0} hasn't vanish.",imgs)) {
 
         }
     }

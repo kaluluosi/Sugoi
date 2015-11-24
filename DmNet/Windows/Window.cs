@@ -30,17 +30,12 @@ namespace DmNet.Windows
         private Ocr ocr;
 
         /// <summary>
-        /// 默认 桌面窗口
-        /// </summary>
-        private Window(){
-            
-        }
-
-        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hwnd">句柄</param>
         public Window(int hwnd) {
+            if(IsWindow(hwnd) == false)
+                throw new InvalidHandleException(hwnd);
             this.Hwnd = hwnd;
         }
 
@@ -572,6 +567,9 @@ namespace DmNet.Windows
 
         [DllImport("user32.dll")]
         public static extern int GetDesktopWindow();
+
+        [DllImport("user32.dll")]
+        public static extern bool IsWindow(int hwnd);
 
         /// <summary>
         /// 私有工具函数，用来将句柄字符串转换成窗口列表

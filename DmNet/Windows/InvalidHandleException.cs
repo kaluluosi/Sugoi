@@ -10,10 +10,9 @@ namespace DmNet.Windows
     {
         public int Hwnd { get; set; }
 
-        public InvalidHandleException(int hwnd, string message)
-            : base(message) {
+        public InvalidHandleException(int hwnd)
+            : base(string.Format("%s is an invalid handle.",hwnd)) {
                 Hwnd = hwnd;
-
         }
     }
 }
