@@ -54,7 +54,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SugoiTests.cs" />
     <Compile Include="UnitTestDM.cs" />
     <Compile Include="UnitTestIR.cs" />
     <Compile Include="UnitTestMouse.cs" />

@@ -293,7 +293,7 @@ namespace DmNet.Windows
         public bool BindingDmsoft(dmsoft dm, BindingInfo info) {
             this.dm = dm;
             if(Hwnd <= 0)
-                throw new InvalidHandleException(Hwnd, "Invalid Handle");
+                throw new InvalidHandleException(Hwnd);
             int result = dm.BindWindow(this.Hwnd, info.Display.ToString(), info.Mouse.ToString(), info.Keyboard.ToString(), (int)info.Mode);
             IsBinding = result == 1 ? true : false;
             return IsBinding;

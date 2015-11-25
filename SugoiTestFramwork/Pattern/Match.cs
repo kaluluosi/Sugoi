@@ -8,27 +8,22 @@ using System.Threading.Tasks;
 
 namespace SugoiTestFramwork.Pattern
 {
-    public class Match:Region,IOperable
+    public class Match:Region
     {
-        private PatternBase pattern;
-
-        public Match(Region r,PatternBase pattern):base(r.AppWin) {
-            this.pattern = pattern;
+        public Match(Region parent,PatternBase pattern):base(parent.AppWin) {
+            this.Pattern = pattern;
+            this.Parent = parent;
         }
 
-        public PatternBase Pattern {
-            get { return pattern; }
-            set { pattern = value; }
+        public PatternBase Pattern { get; set; }
+
+        public Point Target {
+            get {
+                if (Pattern.TargetOffset == Point.Empty)
+                    return this.Center;
+                return new Point(X1 + Pattern.TargetOffset.X, Y1 + Pattern.TargetOffset.Y);
+            }
         }
 
-        public Point GetTarget() {
-            Point p = new Point(X1 + pattern.TargetOffset.X, Y1 + pattern.TargetOffset.Y);
-            return p;
-        }
-
-        void IOperable.Click(Region r) {
-            r.AppWin.Mouse.MoveTo(GetTarget().X, GetTarget().Y);
-            r.AppWin.Mouse.LeftClick();
-        }
     }
 }

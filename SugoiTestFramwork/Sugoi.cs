@@ -18,7 +18,7 @@ namespace SugoiTestFramwork
     /// <summary>
     /// Sugoi测试框架运行对象
     /// </summary>
-    public class Sugoi:SugoiTest
+    public class Sugoi
     {
         public static readonly Process app = new Process();
         private Window appWin = Window.Desktop;

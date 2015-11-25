@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugoiTestFramwork
+namespace SugoiTestFramwork.Test
 {
-    public class SugoiTest
+    public class Assert
     {
         public void AssertTrue(bool condition) {
             if(condition == false) {

@@ -8,7 +8,7 @@ namespace DmNet
 {
     public class RegistFailException:Exception
     {
-        public RegistFailException()base("dm.dll regist fail") {
+        public RegistFailException():base("dm.dll regist fail") {
             
         }
     }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugoiTestFramwork {
+namespace SugoiTestFramwork.Test {
     public abstract class TestRunner {
         public abstract void Run(TestCase test);
     }

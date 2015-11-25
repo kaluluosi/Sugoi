@@ -7,23 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugoiTestFramwork {
+namespace SugoiTestFramwork.Test {
     /// <summary>
     /// 测试辅助工具
     /// </summary>
     public class ScriptLoader {
         public readonly static ScriptEngine engine = Python.CreateEngine();
-        public readonly static Sugoi sugoi = new Sugoi();
-        public readonly static SugoiTest assert = new SugoiTest();
+//         public readonly static Sugoi sugoi = new Sugoi();
+        public readonly static Assert assert = new Assert();
 
         private static ScriptScope scope;
         public static ScriptScope Scope {
             get {
                 if (scope == null) {
                     scope = engine.CreateScope();
-                    scope.SetVariable("Sugoi", sugoi);
-                    scope.SetVariable("Assert", assert);
-                    scope.SetVariable("ImgPattern", typeof(ImgPattern));
+//                     scope.SetVariable("Sugoi", sugoi);
+//                     scope.SetVariable("Assert", assert);
+//                     scope.SetVariable("ImgPattern", typeof(ImgPattern));
                 }
                 return scope;
             }
@@ -37,7 +37,7 @@ namespace SugoiTestFramwork {
         /// <returns></returns>
         public static TestCase LoadTestScript(string path) {
             path = Path.GetFullPath(path);
-            Sugoi.SetScriptPath(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar);
+//             Sugoi.SetScriptPath(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar);
 
             ScriptSource script = engine.CreateScriptSourceFromFile(path);
             script.Execute(Scope);

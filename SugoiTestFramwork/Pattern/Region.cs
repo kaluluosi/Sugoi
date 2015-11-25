@@ -8,14 +8,20 @@ using System.Drawing;
 
 namespace SugoiTestFramwork.Pattern
 {
-    public class Region:IOperable
+    public class Region
     {
-        private Window appWin = Window.Desktop;
+        protected Window appWin;
 
         public Window AppWin {
             get { return appWin; }
             set { appWin = value; }
         }
+
+        /// <summary>
+        /// 父区域
+        /// </summary>
+        public Region Parent { get; set; }
+
         private int x1, y1, x2, y2;
 
         public int Y2 {
@@ -52,15 +58,6 @@ namespace SugoiTestFramwork.Pattern
             y2 = appWin.ClientRect.Bottom;
         }
 
-        public Region SetRect(int left, int top, int right, int bottom) {
-            Region r = this.MemberwiseClone() as Region;
-            r.x1 = left;
-            r.y1 = top;
-            r.x2 = right;
-            r.y2 = bottom;
-            return r;
-        }
-
         #region 方位
         public Region Inside() {
             return this;
@@ -72,7 +69,7 @@ namespace SugoiTestFramwork.Pattern
         /// <param name="range"></param>
         /// <returns></returns>
         public Region Above(int range=0) {
-            return new Region(appWin).SetRect(x1, y1 - range, x2, y1);
+            return new Region(appWin) { X1 = x1, Y1 = y1 - range, X2 = x2, Y2 = y1 };
         }
 
         public Region Left(int range = 0) {
@@ -90,16 +87,39 @@ namespace SugoiTestFramwork.Pattern
         #endregion
 
         public Match Find(PatternBase pattern) {
-            return null;
+            return pattern.Find(this);
         }
 
-        public void Click(IOperable opObj) {
-            opObj.Click(this);
+        public Match Find(string picName) {
+            return new ImgPattern(picName).Find(this);
+        }
+
+        public List<Match> FindAll(PatternBase pattern) {
+            return pattern.FindAll(this);
+        }
+
+        public List<Match> FindAll(string picName) {
+            return new ImgPattern(picName).FindAll(this);
+        }
+
+        public void Click(PatternBase pattern) {
+            Match m = Find(pattern);
+            Click(m);
+        }
+
+        public void Click(string picName) {
+            Match m = Find(picName);
+            Click(m);
         }
 
         public void Click(Region r) {
             r.appWin.Mouse.MoveTo(Center.X, Center.Y);
             r.appWin.Mouse.LeftClick();
+        }
+
+        public void Click(Match m) {
+            appWin.Mouse.MoveTo(m.Target.X,m.Target.Y);
+            appWin.Mouse.LeftClick();
         }
     }
 }
