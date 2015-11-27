@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 
 namespace SugoiTestFramwork.Pattern
 {
-    /// <summary>
-    /// 代表整个前台屏幕
-    /// </summary>
     public class Screen:Region
     {
         private static Screen screen;
