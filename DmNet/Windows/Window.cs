@@ -10,12 +10,14 @@ using DmNet.Input;
 using DmNet.ImageRecognition;
 using DmNet.OCR;
 using System.Runtime.InteropServices;
+using System.IO;
 
-namespace DmNet.Windows
-{
-    
-    public class Window
-    {
+namespace DmNet.Windows {
+
+    public class Window {
+        /// <summary>
+        /// 前台桌面对象，相对全屏前台做操作就用这个对象别用window
+        /// </summary>
         public static readonly Window Desktop = new Window(GetDesktopWindow());
 
         /// <summary>
@@ -30,13 +32,17 @@ namespace DmNet.Windows
         private Ocr ocr;
 
         /// <summary>
-        /// 构造函数
+        /// 构造函数,默认做前台绑定
         /// </summary>
         /// <param name="hwnd">句柄</param>
-        public Window(int hwnd) {
-            if(IsWindow(hwnd) == false)
+        public Window(int hwnd, BindingInfo mode = null) {
+            if (mode == null) {
+                mode = BindingInfo.DefaultForeground;
+            }
+            if (IsWindow(hwnd) == false)
                 throw new InvalidHandleException(hwnd);
             this.Hwnd = hwnd;
+            BindingDmsoft(mode);
         }
 
 
@@ -57,29 +63,22 @@ namespace DmNet.Windows
 
         /// <summary>
         /// 客户区大小
-        /// 没有绑定窗口使用的话将获的0
         /// </summary>
         public Size ClientSize {
             get {
-                if(IsBinding) {
-                    COMParam<int> x, y;
-                    x = new COMParam<int>(0);
-                    y = new COMParam<int>(0);
-                    dm.GetClientSize(Hwnd, out x.Data, out y.Data);
-                    return new Size(x.Value, y.Value);
-                }
-                else {
-                    return new Size(dm.GetScreenWidth(), dm.GetScreenHeight());
-                }
+                COMParam<int> x, y;
+                x = new COMParam<int>(0);
+                y = new COMParam<int>(0);
+                dm.GetClientSize(Hwnd, out x.Data, out y.Data);
+                return new Size(x.Value, y.Value);
             }
             set {
-                if(IsBinding == false)
-                    return;
                 dm.SetClientSize(Hwnd, value.Width, value.Height);
             }
         }
         /// <summary>
-        /// 客户区区域
+        /// 客户区在屏幕中的绝对区域
+        /// 不受绑定影响
         /// </summary>
         public Rectangle ClientRect {
             get {
@@ -95,7 +94,7 @@ namespace DmNet.Windows
 
         public Keyboard Keyborad {
             get {
-                if(keyboard == null)
+                if (keyboard == null)
                     keyboard = new Keyboard(this);
                 return keyboard;
             }
@@ -103,7 +102,7 @@ namespace DmNet.Windows
 
         public Mouse Mouse {
             get {
-                if(mouse == null)
+                if (mouse == null)
                     mouse = new Mouse(this);
                 return mouse;
             }
@@ -111,7 +110,7 @@ namespace DmNet.Windows
 
         public IR IR {
             get {
-                if(ir == null)
+                if (ir == null)
                     ir = new IR(this);
                 return ir;
             }
@@ -119,7 +118,7 @@ namespace DmNet.Windows
 
         public Ocr Ocr {
             get {
-                if(ocr == null)
+                if (ocr == null)
                     ocr = new Ocr(this);
                 return ocr;
             }
@@ -165,7 +164,8 @@ namespace DmNet.Windows
         }
 
         /// <summary>
-        /// 窗口矩形
+        /// 窗口在屏幕中的绝对区域
+        /// 不受绑定影响
         /// </summary>
         public Rectangle WindowRect {
             get {
@@ -276,7 +276,7 @@ namespace DmNet.Windows
         /// <returns></returns>
         public bool UnBindingDmsoft() {
             bool result = Convert.ToBoolean(dm.UnBindWindow());
-            if(result){
+            if (result) {
                 this.dm = Dm.Default;
                 IsBinding = false;
             }
@@ -292,7 +292,7 @@ namespace DmNet.Windows
         /// <returns></returns>
         public bool BindingDmsoft(dmsoft dm, BindingInfo info) {
             this.dm = dm;
-            if(Hwnd <= 0)
+            if (Hwnd <= 0)
                 throw new InvalidHandleException(Hwnd);
             int result = dm.BindWindow(this.Hwnd, info.Display.ToString(), info.Mouse.ToString(), info.Keyboard.ToString(), (int)info.Mode);
             IsBinding = result == 1 ? true : false;
@@ -308,7 +308,7 @@ namespace DmNet.Windows
         /// 关闭窗口
         /// </summary>
         public bool Close(bool immediately = false) {
-            if(immediately) {
+            if (immediately) {
                 return Convert.ToBoolean(dm.SetWindowState(Hwnd, 13));
             }
             else {
@@ -328,7 +328,7 @@ namespace DmNet.Windows
         /// </summary>
         /// <param name="activa">是否取消激活</param>
         public bool Minimize(bool activa = false) {
-            if(activa) {
+            if (activa) {
                 return Convert.ToBoolean(dm.SetWindowState(Hwnd, 3));
             }
             else {
@@ -378,15 +378,15 @@ namespace DmNet.Windows
         /// <param name="msg">内容</param>
         /// <param name="ime">是否用ime输入[收费接口]</param>
         public bool Say(string msg, bool ime = false) {
-            if(ime)
+            if (ime)
                 return Convert.ToBoolean(dm.SendStringIme(msg));
 
             int result = dm.SendString(Hwnd, msg);
-            if(result == 0) {
+            if (result == 0) {
                 result = dm.SendString2(Hwnd, msg);
             }
             return Convert.ToBoolean(result);
-            
+
         }
 
         public void PasteString(string msg) {
@@ -452,32 +452,12 @@ namespace DmNet.Windows
         }
 
         /// <summary>
-        /// 截取客户区画面保存为png
+        /// 截取客户区画面保存为名为filename的图片，不需要加扩展名。
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public bool ScreenShot(string fileName,string imgType="bmp") {
-            int left = WindowRect.Left;
-            int top = WindowRect.Top;
-            int right = WindowRect.Right;
-            int bottom = WindowRect.Bottom;
-
-            int result = 0;
-            switch(imgType.ToLower()) {
-                case "png":
-                    result = dm.CapturePng(left,top,right,bottom, fileName+'.'+imgType);
-                    break;
-                case "jpg":
-                    result = dm.CaptureJpg(left, top, right, bottom, fileName + '.' + imgType, 100);
-                    break;
-                case "bmp":
-                    result = dm.Capture(left, top, right, bottom, fileName + '.' + imgType);
-                    break;
-                default:
-                    result = dm.Capture(left, top, right, bottom, fileName + '.' + imgType);
-                    break;
-            }
-            return Convert.ToBoolean(result);
+        public bool ScreenShot(string fileName, string imgType = "bmp") {
+            return IR.Capture(fileName, imgType);
         }
 
         #endregion
@@ -495,7 +475,7 @@ namespace DmNet.Windows
         /// <returns>窗口</returns>
         public static Window FindWindow(string title, string className = "", Window parent = null) {
             int hwnd = 0;
-            if(parent == null) {
+            if (parent == null) {
                 hwnd = Dm.Default.FindWindow(className, title);
             }
             else {
@@ -575,7 +555,7 @@ namespace DmNet.Windows
         /// 私有工具函数，用来将句柄字符串转换成窗口列表
         /// </summary>
         private static List<Window> HwndString2Window(string allHwnds) {
-            if(string.IsNullOrEmpty(allHwnds))
+            if (string.IsNullOrEmpty(allHwnds))
                 return null;
 
             string[] hwnds = allHwnds.Split(',');
@@ -585,14 +565,6 @@ namespace DmNet.Windows
             return a.ToList();
         }
 
-        /// <summary>
-        /// 创建窗口，如果hwnd为0则直接返回null
-        /// </summary>
-        /// <param name="hwnd"></param>
-        /// <returns></returns>
-        private static Window CreateWindow(int hwnd) {
-            return hwnd > 0 ? new Window(hwnd) : null;
-        }
 
         #endregion
     }

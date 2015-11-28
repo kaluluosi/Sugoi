@@ -12,6 +12,9 @@ namespace SugoiTestFramwork.Pattern
     {
         protected Window appWin;
 
+        /// <summary>
+        /// 区域所属的应用窗口
+        /// </summary>
         public Window AppWin {
             get { return appWin; }
             set { appWin = value; }
@@ -44,18 +47,30 @@ namespace SugoiTestFramwork.Pattern
             set { x1 = value; }
         }
 
-        public Point Center {
+        public virtual Point Pivot {
             get {
                 return new Point((x1 + x2) / 2, (y1 + y2) / 2);
             }
         }
 
+        /// <summary>
+        /// 如果Region是从AppWin中创建的，那么就以appwin的客户区为区域。
+        /// </summary>
+        /// <param name="appWin"></param>
         public Region(Window appWin) {
             this.appWin = appWin;
-            x1 = appWin.ClientRect.Left;
-            y1 = appWin.ClientRect.Top;
-            x2 = appWin.ClientRect.Right;
-            y2 = appWin.ClientRect.Bottom;
+            X1 = Y1 = 0;
+            X2 = appWin.ClientSize.Width;
+            Y2 = appWin.ClientSize.Height;
+        }
+
+        /// <summary>
+        /// 从父region创建子region
+        /// 若不另外设置区域那么区域将跟父region一样大
+        /// </summary>
+        /// <param name="parent"></param>
+        public Region(Region parent):this(parent.appWin) {
+            this.Parent = parent;
         }
 
         #region 方位
@@ -64,7 +79,7 @@ namespace SugoiTestFramwork.Pattern
         }
 
         /// <summary>
-        /// 已left，top为左下角坐标，向上range划一个框框
+        /// 以left，top为左下角坐标，向上range划一个框框
         /// </summary>
         /// <param name="range"></param>
         /// <returns></returns>
@@ -84,8 +99,15 @@ namespace SugoiTestFramwork.Pattern
             return null;
         }
 
+        public Region GetRegionOfInterst(int x1,int y1,int x2,int y2) {
+            //这里要做一个校验x1,y1,x2,y2不能为负数，或者(x2,y2)-(x1,y1)不能为负
+            Region r = new Region(Parent) { X1 = x1, Y1 = y1, X2 = x2, Y2 = y2 };
+            return r;
+        }
+
         #endregion
 
+        #region 找图找色找字
         public Match Find(PatternBase pattern) {
             return pattern.Find(this);
         }
@@ -102,6 +124,10 @@ namespace SugoiTestFramwork.Pattern
             return new ImgPattern(picName).FindAll(this);
         }
 
+        #endregion
+
+        #region 操作相关
+
         public void Click(PatternBase pattern) {
             Match m = Find(pattern);
             Click(m);
@@ -113,13 +139,25 @@ namespace SugoiTestFramwork.Pattern
         }
 
         public void Click(Region r) {
-            r.appWin.Mouse.MoveTo(Center.X, Center.Y);
+            r.appWin.Mouse.MoveTo(r.Pivot.X, r.Pivot.Y);
             r.appWin.Mouse.LeftClick();
         }
 
-        public void Click(Match m) {
-            appWin.Mouse.MoveTo(m.Target.X,m.Target.Y);
-            appWin.Mouse.LeftClick();
+        public void DoubleClick(PatternBase pattern) {
+            Match m = Find(pattern);
+            DoubleClick(m);
         }
+
+        public void DoubleClick(Region r) {
+            r.appWin.Mouse.MoveTo(r.Pivot.X, r.Pivot.Y);
+            r.appWin.Mouse.LeftDoubleClick();
+        }
+
+        public void DoubleClick(string picName) {
+            Match m = Find(picName);
+            DoubleClick(m);
+        }
+        #endregion
+
     }
 }

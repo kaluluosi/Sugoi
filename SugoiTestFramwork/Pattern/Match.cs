@@ -17,13 +17,12 @@ namespace SugoiTestFramwork.Pattern
 
         public PatternBase Pattern { get; set; }
 
-        public Point Target {
+        public override Point Pivot {
             get {
                 if (Pattern.TargetOffset == Point.Empty)
-                    return this.Center;
+                    return base.Pivot;
                 return new Point(X1 + Pattern.TargetOffset.X, Y1 + Pattern.TargetOffset.Y);
             }
         }
-
     }
 }

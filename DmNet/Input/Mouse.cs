@@ -10,6 +10,9 @@ using DmNet.Windows;
 
 namespace DmNet.Input
 {
+    /// <summary>
+    /// 鼠标在绑定了窗口后将相对于窗口移动
+    /// </summary>
     public class Mouse
     {
         public static readonly Mouse DestopMouse = new Mouse(Window.Desktop);

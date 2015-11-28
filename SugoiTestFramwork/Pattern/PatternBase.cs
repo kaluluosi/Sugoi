@@ -22,6 +22,10 @@ namespace SugoiTestFramwork.Pattern {
 
         public Point TargetOffset { get; set; }
 
+        public void SetOffset(int x,int y) {
+            TargetOffset = new Point(x, y);
+        }
+
         /// <summary>
         /// 找点
         /// </summary>

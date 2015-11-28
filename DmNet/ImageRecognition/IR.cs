@@ -10,6 +10,8 @@ namespace DmNet.ImageRecognition
 {
     /// <summary>
     /// 图色识别 组件
+    /// IR在绑定了窗口后将相对于窗口坐标进行识别。
+    /// 部分方法重载了一个全客户区识别版本，此版本方法必须绑定后使用
     /// </summary>
     public class IR
     {
@@ -39,14 +41,14 @@ namespace DmNet.ImageRecognition
                     break;
                 case "bmp":
                 default:
-                    result = win.Dmsoft.Capture(x2, y1, x2, y2, fileName);
+                    result = win.Dmsoft.Capture(x1, y1, x2, y2, fileName);
                     break;
             }
             return Convert.ToBoolean(result);
         }
 
         /// <summary>
-        /// 客户区全屏截图
+        /// 客户区全屏截图,要绑定后用，不然会截取绝对区域。
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="imgType"></param>

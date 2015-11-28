@@ -78,6 +78,8 @@
     <Compile Include="Pattern\ColorPattern.cs" />
     <Compile Include="Pattern\ImgPattern.cs" />
     <Compile Include="Pattern\Match.cs" />
+    <Compile Include="Pattern\MultiColorPattern.cs" />
+    <Compile Include="Pattern\MultiImgPattern.cs" />
     <Compile Include="Pattern\PatternBase.cs" />
     <Compile Include="Pattern\Region.cs" />
     <Compile Include="Pattern\Screen.cs" />

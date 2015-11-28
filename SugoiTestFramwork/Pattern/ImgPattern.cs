@@ -65,7 +65,6 @@ namespace SugoiTestFramwork.Pattern {
             return matchs.ToList();
         }
 
-
         public static void SetImgPath(string path) {
             if(path.EndsWith(@"\") == false)
                 path += @"\";
