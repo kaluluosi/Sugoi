@@ -80,7 +80,7 @@ namespace DmNet.OCR
         }
 
         /// <summary>
-        /// 快速模糊查找
+        /// 快速模糊查找。模糊找字。
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -98,14 +98,14 @@ namespace DmNet.OCR
         }
 
         /// <summary>
-        /// 全屏快速找字
+        /// 全屏快速找字。模糊找字。
         /// </summary>
         public Point FindStrFast(string text, string color_format, double sim = 0.9) {
             return FindStrFast(0,0,win.ClientSize.Width,win.ClientSize.Height, text, color_format, sim);
         }
 
         /// <summary>
-        /// 区域快速找所有字
+        /// 区域快速找所有字。模糊找字。
         /// </summary>
         public List<Point> FindAllStrFast(int x1, int y1, int x2, int y2, string text, string color_format, double sim = 0.9) {
             string result = win.Dmsoft.FindStrFastEx(x1, y1, x2, y2, text, color_format, sim);
@@ -121,14 +121,14 @@ namespace DmNet.OCR
         }
 
         /// <summary>
-        /// 全屏找所有字
+        /// 全屏找所有字。模糊找字。
         /// </summary>
         public List<Point> FindAllStrFast(string text, string color_format, double sim = 0.9) {
             return FindAllStrFast(0,0,win.ClientSize.Width,win.ClientSize.Height, text, color_format, sim);
         }
 
         /// <summary>
-        /// 区域用系统字库查找
+        /// 区域用系统字库查找。系统字库找字一般不适用于游戏，成功率也低。
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -147,14 +147,14 @@ namespace DmNet.OCR
         }
 
         /// <summary>
-        /// 全屏用系统字库找字
+        /// 全屏用系统字库找字。系统字库找字一般不适用于游戏，成功率也低。
         /// </summary>
         public Point FindStrWithFont(string text, string color_format, double sim, FontInfo fontInfo) {
             return FindStrWithFont(0,0,win.ClientSize.Width,win.ClientSize.Height, text, color_format, sim, fontInfo);
         }
 
         /// <summary>
-        /// 区域用系统字库找所有字
+        /// 区域用系统字库找所有字。系统字库找字一般不适用于游戏，成功率也低。
         /// </summary>
         public List<Point> FindAllStrWithFont(int x1, int y1, int x2, int y2, string text, string color_format, double sim, FontInfo fontInfo) {
             string result = win.Dmsoft.FindStrWithFontEx(x1, y1, x2, y2, text, color_format, sim, fontInfo.Name, fontInfo.Size, fontInfo.Flag);
@@ -170,7 +170,7 @@ namespace DmNet.OCR
         }
 
         /// <summary>
-        /// 区域用系统字库找所有字
+        /// 区域用系统字库找所有字。系统字库找字一般不适用于游戏，成功率也低。
         /// </summary>
         public List<Point> FindAllStrWithFont(string text, string color_format, double sim, FontInfo fontInfo) {
             return FindAllStrWithFont(0,0,win.ClientSize.Width,win.ClientSize.Height, text, color_format, sim, fontInfo);

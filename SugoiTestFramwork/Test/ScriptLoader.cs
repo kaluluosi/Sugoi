@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugoiTestFramwork.Test {
+namespace SugoiTestFramework.Test {
     /// <summary>
     /// 测试辅助工具
     /// </summary>
     public class ScriptLoader {
         public readonly static ScriptEngine engine = Python.CreateEngine();
-//         public readonly static Sugoi sugoi = new Sugoi();
         public readonly static Assert assert = new Assert();
 
         private static ScriptScope scope;
@@ -21,9 +20,6 @@ namespace SugoiTestFramwork.Test {
             get {
                 if (scope == null) {
                     scope = engine.CreateScope();
-//                     scope.SetVariable("Sugoi", sugoi);
-//                     scope.SetVariable("Assert", assert);
-//                     scope.SetVariable("ImgPattern", typeof(ImgPattern));
                 }
                 return scope;
             }
@@ -37,7 +33,6 @@ namespace SugoiTestFramwork.Test {
         /// <returns></returns>
         public static TestCase LoadTestScript(string path) {
             path = Path.GetFullPath(path);
-//             Sugoi.SetScriptPath(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar);
 
             ScriptSource script = engine.CreateScriptSourceFromFile(path);
             script.Execute(Scope);
@@ -82,5 +77,14 @@ namespace SugoiTestFramwork.Test {
             return new TestCase(setUpClass, tearDownClass, setUp, tearDown, cleanUp, testMethods.ToList());
         }
 
+        /// <summary>
+        /// 库搜索路径，默认从根目录和Lib文件夹里搜索
+        /// </summary>
+        /// <param name="paths"></param>
+        public static void SetLibSearchPath(IEnumerable<string> paths) {
+            var lstPaths = paths.ToList();
+            lstPaths.Add(@".\");
+            engine.SetSearchPaths(lstPaths);
+        }
     }
 }

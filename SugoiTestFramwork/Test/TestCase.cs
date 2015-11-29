@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugoiTestFramwork.Test {
+namespace SugoiTestFramework.Test {
     public class TestCase {
 
         public TestCase(
@@ -34,7 +34,6 @@ namespace SugoiTestFramwork.Test {
 
 
         public TestResult Run(TestResult result) {
-
             try {
                 if (result == null) result = new TestResult();
 

@@ -442,7 +442,7 @@ namespace SugoiTestFramwork
         }
 
 
-        public void RunAndBindApp(string exePath,string arguments="",string mode = "Foreground") {
+        public void RunAndGetAppRegion(string exePath,string arguments="",string mode = "Foreground") {
             RunApp(exePath,arguments);
             Thread.Sleep(1000);
             appWin = new Window(app.MainWindowHandle.ToInt32());

@@ -19,3 +19,10 @@ C:\Users\dengxuan\Documents\GitHub\Sugoi\TestWindow\obj\Debug\TestWindow.g.resou
 D:\GitHub\Sugoi\Sugoi\TestWindow\bin\Debug\TestWindow.exe.config
 D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.exe
 D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.pdb
+D:\GitHub\Sugoi\Sugoi\TestWindow\bin\Debug\TestWindow.exe
+D:\GitHub\Sugoi\Sugoi\TestWindow\bin\Debug\TestWindow.pdb
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.csprojResolveAssemblyReference.cache
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.g.resources
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.Form1.resources
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.Properties.Resources.resources
+D:\GitHub\Sugoi\Sugoi\TestWindow\obj\Debug\TestWindow.csproj.GenerateResource.Cache

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugoiTestFramework", "Sugoi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWindow", "TestWindow\TestWindow.csproj", "{6BE9A3F6-299B-44CD-A336-532C1A538B89}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SugoiScript", "SugoiScript\SugoiScript.pyproj", "{7D8DC80F-6F92-4FAB-B72D-CBF3ED106155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,8 @@ Global
 		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BE9A3F6-299B-44CD-A336-532C1A538B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8DC80F-6F92-4FAB-B72D-CBF3ED106155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8DC80F-6F92-4FAB-B72D-CBF3ED106155}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

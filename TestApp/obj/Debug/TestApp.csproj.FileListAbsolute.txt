@@ -67,9 +67,7 @@ D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\Microsoft.Scripting.AspNet.dll
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\Microsoft.Scripting.dll
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\Microsoft.Scripting.Metadata.dll
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\SugoiTestFramwork.dll
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\DmNet.pdb
-D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\SugoiTestFramwork.pdb
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\IronPython.xml
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\IronPython.Modules.xml
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\IronPython.SQLite.xml
@@ -83,3 +81,5 @@ D:\GitHub\Sugoi\Sugoi\TestApp\obj\Debug\TestApp.csprojResolveAssemblyReference.c
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\keys.py
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\TestApp.exe
 D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\TestApp.pdb
+D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\SugoiTestFramework.dll
+D:\GitHub\Sugoi\Sugoi\TestApp\bin\Debug\SugoiTestFramework.pdb

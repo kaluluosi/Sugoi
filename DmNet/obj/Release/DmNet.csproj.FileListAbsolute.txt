@@ -1,0 +1,5 @@
+D:\GitHub\Sugoi\Sugoi\DmNet\bin\Release\DmNet.dll
+D:\GitHub\Sugoi\Sugoi\DmNet\bin\Release\DmNet.pdb
+D:\GitHub\Sugoi\Sugoi\DmNet\obj\Release\DmNet.csprojResolveAssemblyReference.cache
+D:\GitHub\Sugoi\Sugoi\DmNet\obj\Release\DmNet.dll
+D:\GitHub\Sugoi\Sugoi\DmNet\obj\Release\DmNet.pdb

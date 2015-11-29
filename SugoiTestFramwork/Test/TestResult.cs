@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugoiTestFramwork.Test {
+namespace SugoiTestFramework.Test {
     public class TestResult { 
 
 
